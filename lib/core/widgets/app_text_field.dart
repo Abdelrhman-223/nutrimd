@@ -3,7 +3,7 @@
 **********File Name: auth_text_field
 **********Created At: 14-Apr-24 11:21 AM
 **********Author: Abdelrhman Hussein
-**********Description: 
+**********Description: Create the Text Field that used in the whole application and it takes the field title, controller and the keyboard type.
 */
 
 import 'package:flutter/material.dart';

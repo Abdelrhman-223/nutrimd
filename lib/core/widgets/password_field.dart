@@ -3,7 +3,7 @@
 **********File Name: password_field
 **********Created At: 14-Apr-24 11:47 AM
 **********Author: Abdelrhman Hussein
-**********Description: 
+**********Description: Create the password text field.
 */
 
 import 'package:flutter/material.dart';

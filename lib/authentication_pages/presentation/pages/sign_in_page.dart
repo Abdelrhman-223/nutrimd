@@ -3,7 +3,7 @@
 **********File Name: sign_in_page
 **********Created At: 14-Apr-24 11:15 AM
 **********Author: Abdelrhman Hussein
-**********Description: 
+**********Description: This page to view the content of the sign in page.
 */
 
 import 'dart:convert';
@@ -22,7 +22,6 @@ class SignInPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -37,14 +36,17 @@ class SignInPage extends StatelessWidget {
           textFieldTitle: "Password",
           fieldController: passwordController,
         ),
+
+        // Put the button into Align widget to make it take its right width because the listview giving it the screen width.
         const Align(
           alignment: Alignment.center,
           child: AuthButton(buttonType: true),
         ),
-        /*TextButton(
+
+        TextButton(
           onPressed: () async {
-            print("---------------------");
-            String urlBase = "192.168.1.4",urlDomain = "app/Http/Controllers/api/authentication/signin";
+            print("----------------//192.168.199.119 10.0.2.2:80-----");
+            String urlBase = "192.168.199.119:80",urlDomain = "nutrimdphp/authentication/signIn.php";
             Map<String, dynamic> urlRequest = {"email": "a@gmail.com", "password": "123"};
             print(urlBase + "/" + urlDomain + "/" + urlRequest.toString());
             var url = Uri.http(urlBase, urlDomain, urlRequest);
@@ -52,8 +54,8 @@ class SignInPage extends StatelessWidget {
             var responseData = jsonDecode(response.body);
             print("--------------------- ${responseData["status"]}");
           },
-          child: Text("data"),
-        ),*/
+          child: Text("Data+"),
+        ),
       ],
     );
   }

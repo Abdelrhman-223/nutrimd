@@ -3,7 +3,7 @@
 **********File Name: auth_tab_bar
 **********Created At: 14-Apr-24 9:29 AM
 **********Author: Abdelrhman Hussein
-**********Description: 
+**********Description: Create the authentication tab bar to switch between the sign in and sign up pages.
 */
 
 import 'package:get/get.dart';

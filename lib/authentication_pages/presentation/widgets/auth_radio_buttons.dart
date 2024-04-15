@@ -3,7 +3,7 @@
 **********File Name: auth_radio_buttons
 **********Created At: 15-Apr-24 11:48 AM
 **********Author: Abdelrhman Hussein
-**********Description: 
+**********Description: Create a radio button of tow values, and it take the list of values and the current value.
 */
 
 import 'package:flutter/material.dart';
@@ -21,6 +21,7 @@ class AuthRadioButtons extends StatelessWidget {
       StatefulBuilder(
         builder: (context, setState) => Row(
           children: [
+            // Make it as expanded to put tow buttons in the same row.
             Expanded(
               flex: 1,
               child: ListTile(
@@ -35,6 +36,7 @@ class AuthRadioButtons extends StatelessWidget {
                   groupValue: chosenItem,
                   onChanged: (value) {
                     setState(() {
+                      // if the button clicked it will make the the current value of the button is the chosen value.
                       chosenItem = value!;
                     });
                   },
@@ -54,6 +56,7 @@ class AuthRadioButtons extends StatelessWidget {
                   activeColor: AppColors.secondColor,
                   groupValue: chosenItem,
                   onChanged: (value) {
+                    // if the button clicked it will make the the current value of the button is the chosen value.
                     setState(() {
                       chosenItem = value!;
                     });

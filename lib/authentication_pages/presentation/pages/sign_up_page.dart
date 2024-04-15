@@ -32,9 +32,11 @@ class SignUpPage extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
+        // This row to make the name fields in the same line.
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            /// The equation to determine the width of the field, and that by taking the width of the screen and subtract the value of the padding (16 R,16 L) from it and the value of the gap needed between the tow fields (16) and divide it on 2.
             SizedBox(
               width: (MediaQuery.of(context).size.width - 48) / 2,
               child: AppTextField(
@@ -89,6 +91,8 @@ class SignUpPage extends StatelessWidget {
           radioItemsList: const ["Individual", "Family"],
           chosenItem: "Individual",
         ),*/
+
+        // Put the button into Align widget to make it take its right width because the listview giving it the screen width.
         const Align(
           alignment: Alignment.center,
           child: AuthButton(buttonType: false),
