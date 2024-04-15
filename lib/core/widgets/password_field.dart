@@ -11,7 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:nutrimd/core/utils/app_icons.dart';
 
-import '../../../core/utils/app_colors.dart';
+import '../utils/app_colors.dart';
 
 class PasswordField extends StatelessWidget {
   PasswordField({super.key, required this.textFieldTitle, required this.fieldController});
@@ -24,7 +24,7 @@ class PasswordField extends StatelessWidget {
   Widget build(BuildContext context) {
     return StatefulBuilder(builder: (context, setState) {
       return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
         decoration: BoxDecoration(
           border: GradientBoxBorder(gradient: AppColors.vUtDLinearDarkGrid, width: 3),
@@ -33,6 +33,7 @@ class PasswordField extends StatelessWidget {
         child: TextField(
           obscureText: hiddenPass,
           cursorColor: AppColors.mainColor,
+          keyboardType: TextInputType.visiblePassword,
           style: TextStyle(
             color: AppColors.mainColor,
           ),

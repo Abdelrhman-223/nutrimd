@@ -6,15 +6,26 @@
 **********Description: 
 */
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:nutrimd/core/widgets/app_button.dart';
+import 'package:http/http.dart' as http;
 
 class AuthButton extends StatelessWidget {
   const AuthButton({super.key, required this.buttonType});
 
   final bool buttonType;
 
-  signInFunction() {}
+  signInFunction() async {
+    /*print("---------------------");
+    String urlBase = "192.168.1.4",urlDomain = "api/auth/login";
+    Map<String, dynamic> urlRequest = {"email": "a@gmail.com", "password": "123"};
+    var url = Uri.http(urlBase, urlDomain, urlRequest);
+    var response = await http.post(url);
+    var responseData = jsonDecode(response.body);
+    print("--------------------- ${responseData["status"]}");*/
+  }
 
   signUpFunction() {}
 

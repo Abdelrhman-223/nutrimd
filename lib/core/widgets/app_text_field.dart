@@ -10,22 +10,24 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:nutrimd/core/utils/app_colors.dart';
 
-class AuthTextField extends StatelessWidget {
-  const AuthTextField({super.key, required this.textFieldTitle, required this.fieldController});
+class AppTextField extends StatelessWidget {
+  const AppTextField({super.key, required this.textFieldTitle, required this.fieldController, required this.fieldKeyboardType});
 
   final String textFieldTitle;
   final TextEditingController fieldController;
+  final TextInputType fieldKeyboardType;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         border: GradientBoxBorder(gradient: AppColors.vUtDLinearDarkGrid, width: 3),
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
+        keyboardType: fieldKeyboardType,
         cursorColor: AppColors.mainColor,
         controller: fieldController,
         style: TextStyle(

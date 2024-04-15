@@ -6,11 +6,10 @@
 **********Description: 
 */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:nutrimd/authentication_pages/presentation/pages/sign_in_page.dart';
+import 'package:nutrimd/authentication_pages/presentation/pages/sign_up_page.dart';
 import 'package:nutrimd/authentication_pages/presentation/widgets/auth_tab_bar.dart';
 import 'package:nutrimd/core/styles/dividers.dart';
 import 'package:nutrimd/core/utils/app_colors.dart';
@@ -60,7 +59,7 @@ class AuthPage extends StatelessWidget {
                         },
                         children: [
                           SignInPage(),
-                          SignInPage(),
+                          SignUpPage(),
                         ],
                       ),
                     ),
