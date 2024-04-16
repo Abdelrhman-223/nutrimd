@@ -9,11 +9,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutrimd/api_connection.dart';
 import 'package:nutrimd/authentication_pages/presentation/widgets/auth_radio_buttons.dart';
-import 'package:nutrimd/core/utils/app_colors.dart';
 
-import '../../../core/utils/app_fonts.dart';
-import '../widgets/auth_button.dart';
+import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/password_field.dart';
 
@@ -93,9 +92,24 @@ class SignUpPage extends StatelessWidget {
         ),*/
 
         // Put the button into Align widget to make it take its right width because the listview giving it the screen width.
-        const Align(
+        Align(
           alignment: Alignment.center,
-          child: AuthButton(buttonType: false),
+          child: AppButton(
+              buttonFunction: () {
+                ApiManager().signUpFunction({
+                  'first_name': firstNameController.text,
+                  'last_name': secondNameController.text,
+                  'phone_num': phoneNumberController.text,
+                  'date_of_birth': "2001-03-22",
+                  'email': emailController.text,
+                  'password': passwordController.text,
+                  'gendar': "0",
+                  'diet_diet_id': "1",
+                  'pand_pand_id': "1",
+                  'family_family_id': "1",
+                });
+              },
+              buttonTitle: "Sign-Up"),
         ),
       ],
     );

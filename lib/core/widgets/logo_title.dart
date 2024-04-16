@@ -14,9 +14,10 @@ import '../utils/app_images.dart';
 import '../utils/app_strings.dart';
 
 class LogoAndTitle extends StatelessWidget {
-  const LogoAndTitle({super.key, required this.fieldAlignment});
+  const LogoAndTitle({super.key, required this.fieldAlignment, required this.logoWidth});
 
   final CrossAxisAlignment fieldAlignment;
+  final double logoWidth;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +26,7 @@ class LogoAndTitle extends StatelessWidget {
         SvgPicture.asset(
           ImagePaths.logoSvg,
           cacheColorFilter: true,
-          width: 100,
+          width: logoWidth,
         ),
         Text(
           AppStrings.appTitle,

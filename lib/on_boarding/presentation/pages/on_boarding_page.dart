@@ -43,7 +43,7 @@ class _OnBoardingState extends State<OnBoarding> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         LogoAndTitle(
-                          fieldAlignment: CrossAxisAlignment.start,
+                          fieldAlignment: CrossAxisAlignment.start, logoWidth: 100,
                         ),
                         SkipButton(),
                       ],

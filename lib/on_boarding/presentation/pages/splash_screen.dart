@@ -17,9 +17,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return AnimatedSplashScreen(
       backgroundColor: AppColors.fifthColor,
       nextScreen: const OnBoarding(),
-      splashIconSize: 125,
+      splashIconSize: 175,
       splash: const LogoAndTitle(
-        fieldAlignment: CrossAxisAlignment.center,
+        fieldAlignment: CrossAxisAlignment.center, logoWidth: 150,
       ),
     );
   }

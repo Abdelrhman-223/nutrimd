@@ -32,6 +32,7 @@ class PasswordField extends StatelessWidget {
         ),
         child: TextField(
           obscureText: hiddenPass,
+          controller: fieldController,
           cursorColor: AppColors.mainColor,
           keyboardType: TextInputType.visiblePassword,
           style: TextStyle(

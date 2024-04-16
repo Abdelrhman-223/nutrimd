@@ -6,15 +6,13 @@
 **********Description: This page to view the content of the sign in page.
 */
 
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nutrimd/authentication_pages/presentation/widgets/auth_button.dart';
 import 'package:nutrimd/core/widgets/app_text_field.dart';
 import 'package:nutrimd/core/widgets/password_field.dart';
 
-import 'package:http/http.dart' as http;
+import '../../../api_connection.dart';
+import '../../../core/widgets/app_button.dart';
 
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});
@@ -38,23 +36,14 @@ class SignInPage extends StatelessWidget {
         ),
 
         // Put the button into Align widget to make it take its right width because the listview giving it the screen width.
-        const Align(
+        Align(
           alignment: Alignment.center,
-          child: AuthButton(buttonType: true),
-        ),
-
-        TextButton(
-          onPressed: () async {
-            print("----------------//192.168.199.119 10.0.2.2:80-----");
-            String urlBase = "192.168.199.119:80",urlDomain = "nutrimdphp/authentication/signIn.php";
-            Map<String, dynamic> urlRequest = {"email": "a@gmail.com", "password": "123"};
-            print(urlBase + "/" + urlDomain + "/" + urlRequest.toString());
-            var url = Uri.http(urlBase, urlDomain, urlRequest);
-            var response = await http.post(url);
-            var responseData = jsonDecode(response.body);
-            print("--------------------- ${responseData["status"]}");
-          },
-          child: Text("Data+"),
+          child: AppButton(
+              buttonFunction: () {
+                ApiManager()
+                    .signInFunction({"email": emailController.text, "password": passwordController.text});
+              },
+              buttonTitle: "Sign-In"),
         ),
       ],
     );

@@ -14,15 +14,13 @@ import 'package:nutrimd/core/utils/app_fonts.dart';
 class AppButton extends StatelessWidget {
   const AppButton({super.key, required this.buttonFunction, required this.buttonTitle});
 
-  final Function buttonFunction;
+  final Function() buttonFunction;
   final String buttonTitle;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        buttonFunction;
-      },
+      onTap: buttonFunction,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 16),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),

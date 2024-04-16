@@ -38,7 +38,7 @@ class AuthPage extends StatelessWidget {
                     // Logo and Title view in the top left corner.
                     const Align(
                       alignment: Alignment.centerLeft,
-                      child: LogoAndTitle(fieldAlignment: CrossAxisAlignment.start),
+                      child: LogoAndTitle(fieldAlignment: CrossAxisAlignment.start, logoWidth: 100,),
                     ),
                     spaceVertical32(),
                     const AuthTabBar(),
