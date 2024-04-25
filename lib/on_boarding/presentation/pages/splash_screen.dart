@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       backgroundColor: AppColors.fifthColor,
-      nextScreen: const MedicalTestsPage(),//OnBoarding(),
+      nextScreen: const OnBoarding(),//MedicalTestsPage(),
       splashIconSize: 175,
       splash: const LogoAndTitle(
         fieldAlignment: CrossAxisAlignment.center, logoWidth: 150,

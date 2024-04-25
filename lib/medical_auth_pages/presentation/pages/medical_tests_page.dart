@@ -55,7 +55,7 @@ class MedicalTestsPage extends StatelessWidget {
                 ),
               ),
               Text(
-                "Cholesterol: \n   \o Complete cholesterol test. \n   \o Low-density lipoprotein (LDL) test. \n   \o High-density lipoprotein (HDL) test. \n   \o Triglyceride test.\nPressure: \n   \o Blood pressure measurement.\nSugar: \n   \o Glucose fasting test. \n   \o Oral glucose tolerance test. \n   \o Hemoglobin A1C test.\nObesity:\n   \o weight and height. \n   \o Waist circumference.",
+                "Cholesterol: \n   \o Complete cholesterol test. \n   \o Low-density lipoprotein (LDL) test. \n   \o High-density lipoprotein (HDL) test. \n   \o Triglyceride test.\nPressure: \n   \o Blood pressure measurement.\nDiabetes: \n   \o Glucose fasting test. \n   \o Oral glucose tolerance test. \n   \o Hemoglobin A1C test.\nObesity:\n   \o weight and height. \n   \o Waist circumference.",
                 style: TextStyle(
                   color: AppColors.mainColor,
                   fontSize: AppFonts.myP2,

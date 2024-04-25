@@ -6,9 +6,15 @@
 **********Description: 
 */
 
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutrimd/core/widgets/app_button.dart';
+import 'package:nutrimd/medical_auth_pages/presentation/manager/disease_identification.dart';
+import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_results_page.dart';
+import 'package:nutrimd/medical_auth_pages/presentation/widgets/small_text_field_row.dart';
 import '../../../core/styles/dividers.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_fonts.dart';
@@ -25,6 +31,7 @@ class EnterTestResults extends StatelessWidget {
   TextEditingController diastolicPressureController = TextEditingController();
   TextEditingController systolicPressureController = TextEditingController();
   TextEditingController fastingTestSugarController = TextEditingController();
+  TextEditingController oralTestSugarController = TextEditingController();
   TextEditingController a1CTestSugarController = TextEditingController();
   TextEditingController weightObesityController = TextEditingController();
   TextEditingController heightObesityController = TextEditingController();
@@ -62,7 +69,6 @@ class EnterTestResults extends StatelessWidget {
                 ),
               ),
               spaceVertical32(),
-              // View the pages in page view to easy switch between them and i put it in expanded widget to take the rest of the body height.
               Expanded(
                 child: ListView(
                   children: [
@@ -79,27 +85,11 @@ class EnterTestResults extends StatelessWidget {
                       fieldController: completeCholesterolController,
                       fieldKeyboardType: TextInputType.number,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        /// The equation to determine the width of the field, and that by taking the width of the screen and subtract the value of the padding (16 R,16 L) from it and the value of the gap needed between the tow fields (16) and divide it on 2.
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width - 48) / 2,
-                          child: AppTextField(
-                            textFieldTitle: "HDL",
-                            fieldController: hdlCholesterolController,
-                            fieldKeyboardType: TextInputType.number,
-                          ),
-                        ),
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width - 48) / 2,
-                          child: AppTextField(
-                            textFieldTitle: "LDL",
-                            fieldController: ldlCholesterolController,
-                            fieldKeyboardType: TextInputType.number,
-                          ),
-                        ),
-                      ],
+                    SmallTextFieldRow(
+                      firstFieldTitle: "HDL",
+                      secondFieldTitle: "LDL",
+                      firstFieldController: hdlCholesterolController,
+                      secondFieldController: ldlCholesterolController,
                     ),
                     AppTextField(
                       textFieldTitle: "Triglyceride",
@@ -108,6 +98,7 @@ class EnterTestResults extends StatelessWidget {
                     ),
 
                     spaceVertical16(),
+
                     /// Pressure Section:
                     Text(
                       "Pressure:",
@@ -116,63 +107,37 @@ class EnterTestResults extends StatelessWidget {
                         fontSize: AppFonts.myH8,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        /// The equation to determine the width of the field, and that by taking the width of the screen and subtract the value of the padding (16 R,16 L) from it and the value of the gap needed between the tow fields (16) and divide it on 2.
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width - 48) / 2,
-                          child: AppTextField(
-                            textFieldTitle: "Diastolic",
-                            fieldController: diastolicPressureController,
-                            fieldKeyboardType: TextInputType.number,
-                          ),
-                        ),
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width - 48) / 2,
-                          child: AppTextField(
-                            textFieldTitle: "Systolic",
-                            fieldController: systolicPressureController,
-                            fieldKeyboardType: TextInputType.number,
-                          ),
-                        ),
-                      ],
+                    SmallTextFieldRow(
+                      firstFieldTitle: "Diastolic",
+                      secondFieldTitle: "Systolic",
+                      firstFieldController: diastolicPressureController,
+                      secondFieldController: systolicPressureController,
                     ),
 
                     spaceVertical16(),
-                    /// Sugar Section:
+
+                    /// Diabetes Section:
                     Text(
-                      "Sugar:",
+                      "Diabetes:",
                       style: TextStyle(
                         color: AppColors.mainColor,
                         fontSize: AppFonts.myH8,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        /// The equation to determine the width of the field, and that by taking the width of the screen and subtract the value of the padding (16 R,16 L) from it and the value of the gap needed between the tow fields (16) and divide it on 2.
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width - 48) / 2,
-                          child: AppTextField(
-                            textFieldTitle: "Fasting test",
-                            fieldController: fastingTestSugarController,
-                            fieldKeyboardType: TextInputType.number,
-                          ),
-                        ),
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width - 48) / 2,
-                          child: AppTextField(
-                            textFieldTitle: "A1C test",
-                            fieldController: a1CTestSugarController,
-                            fieldKeyboardType: TextInputType.number,
-                          ),
-                        ),
-                      ],
+                    SmallTextFieldRow(
+                      firstFieldTitle: "Fasting test",
+                      secondFieldTitle: "Oral test",
+                      firstFieldController: fastingTestSugarController,
+                      secondFieldController: oralTestSugarController,
                     ),
-
+                    AppTextField(
+                      textFieldTitle: "A1C test",
+                      fieldController: a1CTestSugarController,
+                      fieldKeyboardType: TextInputType.number,
+                    ),
                     spaceVertical16(),
-                    /// Cholesterol Section:
+
+                    /// Obesity Section:
                     Text(
                       "Obesity:",
                       style: TextStyle(
@@ -180,27 +145,11 @@ class EnterTestResults extends StatelessWidget {
                         fontSize: AppFonts.myH8,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        /// The equation to determine the width of the field, and that by taking the width of the screen and subtract the value of the padding (16 R,16 L) from it and the value of the gap needed between the tow fields (16) and divide it on 2.
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width - 48) / 2,
-                          child: AppTextField(
-                            textFieldTitle: "Weight",
-                            fieldController: weightObesityController,
-                            fieldKeyboardType: TextInputType.number,
-                          ),
-                        ),
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width - 48) / 2,
-                          child: AppTextField(
-                            textFieldTitle: "Height",
-                            fieldController: heightObesityController,
-                            fieldKeyboardType: TextInputType.number,
-                          ),
-                        ),
-                      ],
+                    SmallTextFieldRow(
+                      firstFieldTitle: "Weight",
+                      secondFieldTitle: "Height",
+                      firstFieldController: weightObesityController,
+                      secondFieldController: heightObesityController,
                     ),
                     AppTextField(
                       textFieldTitle: "Waist circumference",
@@ -209,13 +158,39 @@ class EnterTestResults extends StatelessWidget {
                     ),
 
                     spaceVertical16(),
-                    Align(
-                      alignment: Alignment.center,
-                      child: AppButton(
-                        buttonFunction: () {},
-                        buttonTitle: "Enter Data",
-                      ),
-                    )
+                    GetBuilder<DiseaseIdentification>(
+                        init: DiseaseIdentification(),
+                        builder: (diseaseIdentificationController) {
+                          return Align(
+                            alignment: Alignment.center,
+                            child: AppButton(
+                              buttonFunction: () {
+                                Map<String, double> testsResults = {
+                                  "completeCholesterol":
+                                      double.parse(completeCholesterolController.text),
+                                  "hdlCholesterol": double.parse(hdlCholesterolController.text),
+                                  "ldlCholesterol": double.parse(ldlCholesterolController.text),
+                                  "triglycerideCholesterol":
+                                      double.parse(triglycerideCholesterolController.text),
+                                  "diastolicPressure": double.parse(diastolicPressureController.text),
+                                  "systolicPressure": double.parse(systolicPressureController.text),
+                                  "fastingTestSugar": double.parse(fastingTestSugarController.text),
+                                  "oralTestSugar": double.parse(oralTestSugarController.text),
+                                  "a1CTestSugar": double.parse(a1CTestSugarController.text),
+                                  "weightObesity": double.parse(weightObesityController.text),
+                                  "heightObesity": double.parse(heightObesityController.text),
+                                  "waistCircumferenceObesity":
+                                      double.parse(waistCircumferenceObesityController.text),
+                                };
+
+                                print(testsResults);
+                                diseaseIdentificationController.addResults(testsResults);
+                                Get.to(const MedicalResults());
+                              },
+                              buttonTitle: "Enter Data",
+                            ),
+                          );
+                        })
                   ],
                 ),
               ),

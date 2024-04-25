@@ -41,5 +41,7 @@ class IconPaths {
   static String previousButton = "assets/icons/previousButton.svg";
   static String eyeHidden = "assets/icons/eyeHidden.svg";
   static String eyeVisible = "assets/icons/eyeVisible.svg";
+  static String goodForYou = "assets/icons/good_for_you.svg";
+  static String badForYou = "assets/icons/bad_for_you.svg";
 //static String  = "assets/icons/.svg";
 }

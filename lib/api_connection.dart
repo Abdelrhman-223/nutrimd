@@ -14,7 +14,7 @@ import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_tests_page
 
 class ApiManager extends GetxController {
   //192.168.199.119 //// 10.0.2.2:80 //// 192.168.1.9:80
-  static String urlBase = "192.168.1.12:80";
+  static String urlBase = "192.168.199.119:80";
   Map<String, String> urlDomains = {
     "signIn": "nutrimd_php/authentication/sign_in.php",
     "signUp": "nutrimd_php/authentication/sign_up.php",

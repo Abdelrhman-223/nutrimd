@@ -9,8 +9,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:nutrimd/api_connection.dart';
 import 'package:nutrimd/authentication_pages/presentation/widgets/auth_radio_buttons.dart';
+import 'package:nutrimd/medical_auth_pages/presentation/pages/enter_test_results.dart';
+import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_tests_page.dart';
 
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
@@ -96,7 +99,8 @@ class SignUpPage extends StatelessWidget {
           alignment: Alignment.center,
           child: AppButton(
               buttonFunction: () {
-                ApiManager().signUpFunction({
+                Get.to(EnterTestResults());
+                /*ApiManager().signUpFunction({
                   'first_name': firstNameController.text,
                   'last_name': secondNameController.text,
                   'phone_num': phoneNumberController.text,
@@ -107,7 +111,7 @@ class SignUpPage extends StatelessWidget {
                   'diet_diet_id': "1",
                   'pand_pand_id': "1",
                   'family_family_id': "1",
-                });
+                });*/
               },
               buttonTitle: "Sign-Up"),
         ),
