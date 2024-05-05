@@ -9,7 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nutrimd/core/utils/app_fonts.dart';
-import 'package:nutrimd/core/widgets/app_button.dart';
+import 'package:nutrimd/core/components/app_button.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/pages/enter_test_results.dart';
 
 import '../../../core/styles/dividers.dart';

@@ -8,11 +8,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutrimd/core/widgets/app_text_field.dart';
 import 'package:nutrimd/core/widgets/password_field.dart';
 
 import '../../../api_connection.dart';
-import '../../../core/widgets/app_button.dart';
+import '../../../core/components/app_button.dart';
 
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});
@@ -36,15 +37,23 @@ class SignInPage extends StatelessWidget {
         ),
 
         // Put the button into Align widget to make it take its right width because the listview giving it the screen width.
-        Align(
-          alignment: Alignment.center,
-          child: AppButton(
-              buttonFunction: () {
-                ApiManager()
-                    .signInFunction({"email": emailController.text, "password": passwordController.text});
-              },
-              buttonTitle: "Sign-In"),
-        ),
+        GetBuilder<ApiManager>(
+            init: ApiManager(),
+            builder: (apiController) {
+              return Align(
+                alignment: Alignment.center,
+                child: AppButton(
+                    buttonFunction: () {
+                      apiController.signInFunction(
+                        {
+                          "email": emailController.text,
+                          "password": passwordController.text,
+                        },
+                      );
+                    },
+                    buttonTitle: "Sign-In"),
+              );
+            }),
       ],
     );
   }

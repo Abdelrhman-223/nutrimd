@@ -1,3 +1,4 @@
+import 'package:nutrimd/home_page.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_tests_page.dart';
 
 import '../../../core/widgets/logo_title.dart';
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       backgroundColor: AppColors.fifthColor,
-      nextScreen: const OnBoarding(),//MedicalTestsPage(),
+      nextScreen: const MyHomePage(),//OnBoarding(),
       splashIconSize: 175,
       splash: const LogoAndTitle(
         fieldAlignment: CrossAxisAlignment.center, logoWidth: 150,

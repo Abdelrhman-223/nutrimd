@@ -7,10 +7,11 @@
 */
 
 import 'package:get/get.dart';
+import 'package:nutrimd/authentication_pages/presentation/manager/auth_data_controller.dart';
 
 class DiseaseIdentification extends GetxController {
   Map<String, double> testsResults = {};
-
+  String gender = "";
   bool userHasCholesterol = false,
       userHasPressure = false,
       userHasSugar = false,
@@ -26,12 +27,11 @@ class DiseaseIdentification extends GetxController {
     "oralTestSugar": "",
     "a1CTestSugar": "",
     "obesity": "",
-    "waistCircumferenceObesity": "",
   };
 
-  addResults(Map<String, double> results) {
+  addResults(Map<String, double> results, String userGender) {
     testsResults = results;
-
+    gender = userGender;
     identifyCholesterol();
     identifyPressure();
     identifySugar();
@@ -52,24 +52,33 @@ class DiseaseIdentification extends GetxController {
       userHasCholesterol = true;
     }
     //
-    if (testsResults["hdlCholesterol"]! < 130) {
-      testsResultsStatus["hdlCholesterol"] = "normal";
-    } else if (testsResults["hdlCholesterol"]! >= 130 && testsResults["hdlCholesterol"]! <= 159) {
-      testsResultsStatus["hdlCholesterol"] = "high";
-      userHasCholesterol = true;
-    } else if (testsResults["hdlCholesterol"]! >= 240) {
-      testsResultsStatus["hdlCholesterol"] = "very high";
+    if (testsResults["ldlCholesterol"]! < 130) {
+      testsResultsStatus["ldlCholesterol"] = "normal";
+    } else if (testsResults["ldlCholesterol"]! >= 130 && testsResults["ldlCholesterol"]! <= 159) {
+      testsResultsStatus["ldlCholesterol"] = "high";
+    } else if (testsResults["ldlCholesterol"]! >= 240) {
+      testsResultsStatus["ldlCholesterol"] = "very high";
       userHasCholesterol = true;
     }
     //
-    if (testsResults["ldlCholesterol"]! < 40) {
-      testsResultsStatus["ldlCholesterol"] = "normal";
-    } else if (testsResults["ldlCholesterol"]! >= 40 && testsResults["ldlCholesterol"]! <= 59) {
-      testsResultsStatus["ldlCholesterol"] = "high";
-      userHasCholesterol = true;
-    } else if (testsResults["ldlCholesterol"]! >= 60) {
-      testsResultsStatus["ldlCholesterol"] = "very high";
-      userHasCholesterol = true;
+    if (gender == "Male") {
+      if (testsResults["hdlCholesterol"]! < 40) {
+        userHasCholesterol = true;
+        testsResultsStatus["hdlCholesterol"] = "low";
+      } else if (testsResults["hdlCholesterol"]! >= 40 && testsResults["hdlCholesterol"]! <= 59) {
+        testsResultsStatus["hdlCholesterol"] = "normal";
+      } else if (testsResults["hdlCholesterol"]! >= 60) {
+        testsResultsStatus["hdlCholesterol"] = "high";
+      }
+    } else {
+      if (testsResults["hdlCholesterol"]! < 50) {
+        userHasCholesterol = true;
+        testsResultsStatus["hdlCholesterol"] = "low";
+      } else if (testsResults["hdlCholesterol"]! >= 50 && testsResults["hdlCholesterol"]! <= 69) {
+        testsResultsStatus["hdlCholesterol"] = "normal";
+      } else if (testsResults["hdlCholesterol"]! >= 70) {
+        testsResultsStatus["hdlCholesterol"] = "high";
+      }
     }
     //
     if (testsResults["triglycerideCholesterol"]! < 150) {
@@ -161,7 +170,6 @@ class DiseaseIdentification extends GetxController {
       testsResultsStatus["oralTestSugar"] = "obesity";
       userHasOpicity = true;
     }
-
     update();
   }
 }

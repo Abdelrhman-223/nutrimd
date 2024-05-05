@@ -6,15 +6,13 @@
 **********Description: 
 */
 
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nutrimd/core/widgets/app_button.dart';
+import 'package:nutrimd/core/components/app_button.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/manager/disease_identification.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_results_page.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/widgets/small_text_field_row.dart';
+import '../../../authentication_pages/presentation/manager/auth_data_controller.dart';
 import '../../../core/styles/dividers.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_fonts.dart';
@@ -35,7 +33,9 @@ class EnterTestResults extends StatelessWidget {
   TextEditingController a1CTestSugarController = TextEditingController();
   TextEditingController weightObesityController = TextEditingController();
   TextEditingController heightObesityController = TextEditingController();
-  TextEditingController waistCircumferenceObesityController = TextEditingController();
+
+  DiseaseIdentification diseaseIdentificationController = Get.put(DiseaseIdentification());
+  AuthDataController authDataController = Get.put(AuthDataController());
 
   @override
   Widget build(BuildContext context) {
@@ -151,46 +151,35 @@ class EnterTestResults extends StatelessWidget {
                       firstFieldController: weightObesityController,
                       secondFieldController: heightObesityController,
                     ),
-                    AppTextField(
-                      textFieldTitle: "Waist circumference",
-                      fieldController: waistCircumferenceObesityController,
-                      fieldKeyboardType: TextInputType.number,
-                    ),
 
                     spaceVertical16(),
-                    GetBuilder<DiseaseIdentification>(
-                        init: DiseaseIdentification(),
-                        builder: (diseaseIdentificationController) {
-                          return Align(
-                            alignment: Alignment.center,
-                            child: AppButton(
-                              buttonFunction: () {
-                                Map<String, double> testsResults = {
-                                  "completeCholesterol":
-                                      double.parse(completeCholesterolController.text),
-                                  "hdlCholesterol": double.parse(hdlCholesterolController.text),
-                                  "ldlCholesterol": double.parse(ldlCholesterolController.text),
-                                  "triglycerideCholesterol":
-                                      double.parse(triglycerideCholesterolController.text),
-                                  "diastolicPressure": double.parse(diastolicPressureController.text),
-                                  "systolicPressure": double.parse(systolicPressureController.text),
-                                  "fastingTestSugar": double.parse(fastingTestSugarController.text),
-                                  "oralTestSugar": double.parse(oralTestSugarController.text),
-                                  "a1CTestSugar": double.parse(a1CTestSugarController.text),
-                                  "weightObesity": double.parse(weightObesityController.text),
-                                  "heightObesity": double.parse(heightObesityController.text),
-                                  "waistCircumferenceObesity":
-                                      double.parse(waistCircumferenceObesityController.text),
-                                };
+                    Align(
+                      alignment: Alignment.center,
+                      child: AppButton(
+                        buttonFunction: () {
+                          Map<String, double> testsResults = {
+                            "completeCholesterol": double.parse(completeCholesterolController.text),
+                            "hdlCholesterol": double.parse(hdlCholesterolController.text),
+                            "ldlCholesterol": double.parse(ldlCholesterolController.text),
+                            "triglycerideCholesterol":
+                                double.parse(triglycerideCholesterolController.text),
+                            "diastolicPressure": double.parse(diastolicPressureController.text),
+                            "systolicPressure": double.parse(systolicPressureController.text),
+                            "fastingTestSugar": double.parse(fastingTestSugarController.text),
+                            "oralTestSugar": double.parse(oralTestSugarController.text),
+                            "a1CTestSugar": double.parse(a1CTestSugarController.text),
+                            "weightObesity": double.parse(weightObesityController.text),
+                            "heightObesity": double.parse(heightObesityController.text),
+                          };
 
-                                print(testsResults);
-                                diseaseIdentificationController.addResults(testsResults);
-                                Get.to(const MedicalResults());
-                              },
-                              buttonTitle: "Enter Data",
-                            ),
-                          );
-                        })
+                          print(testsResults);
+                          diseaseIdentificationController.addResults(
+                              testsResults, authDataController.radioButtonValues["gender"]!);
+                          Get.to(const MedicalResults());
+                        },
+                        buttonTitle: "Enter Data",
+                      ),
+                    ),
                   ],
                 ),
               ),

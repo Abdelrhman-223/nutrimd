@@ -13,7 +13,6 @@ class IconPaths {
   static String checkmarkCircle = "assets/icons/checkmark_circle.svg";
   static String cloudUpload = "assets/icons/cloud_upload.svg";
   static String email = "assets/icons/email.svg";
-  static String profile = "assets/icons/profile.svg";
   static String lock = "assets/icons/lock.svg";
   static String call = "assets/icons/call.svg";
   static String callCircle = "assets/icons/call_circle.svg";
@@ -21,7 +20,6 @@ class IconPaths {
   static String cross = "assets/icons/cross.svg";
   static String logout = "assets/icons/logout.svg";
   static String aboutUs = "assets/icons/about_us.svg";
-  static String settings = "assets/icons/settings.svg";
   static String wallet = "assets/icons/wallet.svg";
   static String shoppingBag = "assets/icons/shopping_bag.svg";
   static String operations = "assets/icons/operations.svg";
@@ -43,5 +41,12 @@ class IconPaths {
   static String eyeVisible = "assets/icons/eyeVisible.svg";
   static String goodForYou = "assets/icons/good_for_you.svg";
   static String badForYou = "assets/icons/bad_for_you.svg";
+  static String settings = "assets/icons/settings.svg";
+  static String history = "assets/icons/history.svg";
+  static String scanner = "assets/icons/scanner.svg";
+  static String home = "assets/icons/home.svg";
+  static String product = "assets/icons/product.svg";
+  static String chatBot = "assets/icons/chatbot.svg";
+  static String profile = "assets/icons/profile.svg";
 //static String  = "assets/icons/.svg";
 }

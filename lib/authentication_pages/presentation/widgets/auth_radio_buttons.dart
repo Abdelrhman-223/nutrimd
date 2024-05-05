@@ -7,65 +7,75 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nutrimd/authentication_pages/presentation/manager/auth_data_controller.dart';
 
 import '../../../core/utils/app_colors.dart';
 
 class AuthRadioButtons extends StatelessWidget {
-  AuthRadioButtons({super.key, required this.radioItemsList, required this.chosenItem});
+  AuthRadioButtons({super.key, required this.radioItemsList, required this.buttonId, required this.chosenItem});
 
   final List<String> radioItemsList;
-  late String chosenItem;
+  late String chosenItem, buttonId;
+
   @override
   Widget build(BuildContext context) {
     return
-      StatefulBuilder(
-        builder: (context, setState) => Row(
-          children: [
-            // Make it as expanded to put tow buttons in the same row.
-            Expanded(
-              flex: 1,
-              child: ListTile(
-                horizontalTitleGap: 0,
-                title: Text(
-                  radioItemsList[0],
-                  style: TextStyle(color: AppColors.mainColor),
+      GetBuilder<AuthDataController>(
+        init: AuthDataController(),
+        builder: (authDataController) {
+          return StatefulBuilder(
+            builder: (context, setState) => Row(
+              children: [
+                // Make it as expanded to put tow buttons in the same row.
+                Expanded(
+                  flex: 1,
+                  child: ListTile(
+                    horizontalTitleGap: 0,
+                    title: Text(
+                      radioItemsList[0],
+                      style: TextStyle(color: AppColors.mainColor),
+                    ),
+                    leading: Radio<String>(
+                      groupValue: chosenItem,
+                      value: radioItemsList[0],
+                      activeColor: AppColors.secondColor,
+                      onChanged: (value) {
+                        setState(() {
+                          // if the button clicked it will make the the current value of the button is the chosen value.
+                          chosenItem = value!;
+                          authDataController.saveRadioButtonValue(buttonId, value);
+                        });
+                      },
+                    ),
+                  ),
                 ),
-                leading: Radio<String>(
-                  value: radioItemsList[0],
-                  activeColor: AppColors.secondColor,
-                  groupValue: chosenItem,
-                  onChanged: (value) {
-                    setState(() {
-                      // if the button clicked it will make the the current value of the button is the chosen value.
-                      chosenItem = value!;
-                    });
-                  },
+                Expanded(
+                  flex: 1,
+                  child: ListTile(
+                    horizontalTitleGap: 0,
+                    title: Text(
+                      radioItemsList[1],
+                      style: TextStyle(color: AppColors.mainColor),
+                    ),
+                    leading: Radio<String>(
+                      groupValue: chosenItem,
+                      value: radioItemsList[1],
+                      activeColor: AppColors.secondColor,
+                      onChanged: (value) {
+                        // if the button clicked it will make the the current value of the button is the chosen value.
+                        setState(() {
+                          chosenItem = value!;
+                          authDataController.saveRadioButtonValue(buttonId, value);
+                        });
+                      },
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-            Expanded(
-              flex: 1,
-              child: ListTile(
-                horizontalTitleGap: 0,
-                title: Text(
-                  radioItemsList[1],
-                  style: TextStyle(color: AppColors.mainColor),
-                ),
-                leading: Radio<String>(
-                  value: radioItemsList[1],
-                  activeColor: AppColors.secondColor,
-                  groupValue: chosenItem,
-                  onChanged: (value) {
-                    // if the button clicked it will make the the current value of the button is the chosen value.
-                    setState(() {
-                      chosenItem = value!;
-                    });
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+        }
       );
   }
 }

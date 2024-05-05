@@ -13,11 +13,11 @@ import 'package:get/get.dart';
 import 'package:nutrimd/api_connection.dart';
 import 'package:nutrimd/authentication_pages/presentation/widgets/auth_radio_buttons.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/pages/enter_test_results.dart';
-import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_tests_page.dart';
-
-import '../../../core/widgets/app_button.dart';
+import '../../../core/components/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/password_field.dart';
+import '../../../medical_auth_pages/presentation/manager/disease_identification.dart';
+import '../manager/auth_data_controller.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -28,6 +28,9 @@ class SignUpPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+
+  DiseaseIdentification diseaseIdentificationController = Get.put(DiseaseIdentification());
+  AuthDataController authDataController = Get.put(AuthDataController());
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +80,7 @@ class SignUpPage extends StatelessWidget {
         ),
         AuthRadioButtons(
           radioItemsList: const ["Male", "Female"],
+          buttonId: "gender",
           chosenItem: "Male",
         ),
 
@@ -91,30 +95,32 @@ class SignUpPage extends StatelessWidget {
         ),
         AuthRadioButtons(
           radioItemsList: const ["Individual", "Family"],
+          buttonId: "familyType",
           chosenItem: "Individual",
         ),*/
 
         // Put the button into Align widget to make it take its right width because the listview giving it the screen width.
-        Align(
-          alignment: Alignment.center,
-          child: AppButton(
-              buttonFunction: () {
-                Get.to(EnterTestResults());
-                /*ApiManager().signUpFunction({
-                  'first_name': firstNameController.text,
-                  'last_name': secondNameController.text,
-                  'phone_num': phoneNumberController.text,
-                  'date_of_birth': "2001-03-22",
-                  'email': emailController.text,
-                  'password': passwordController.text,
-                  'gendar': "0",
-                  'diet_diet_id': "1",
-                  'pand_pand_id': "1",
-                  'family_family_id': "1",
-                });*/
-              },
-              buttonTitle: "Sign-Up"),
-        ),
+        GetBuilder<ApiManager>(
+            init: ApiManager(),
+            builder: (apiController) {
+              return Align(
+                alignment: Alignment.center,
+                child: AppButton(
+                    buttonFunction: () {
+                      // Get.to(EnterTestResults());
+                      ApiManager().signUpFunction({
+                        'first_name': firstNameController.text,
+                        'last_name': secondNameController.text,
+                        'phone_num': phoneNumberController.text,
+                        'date_of_birth': DateTime.now().toString().substring(0, 10),
+                        'email': emailController.text,
+                        'password': passwordController.text,
+                        'gender': authDataController.radioButtonValues["gender"],
+                      });
+                    },
+                    buttonTitle: "Sign-Up"),
+              );
+            }),
       ],
     );
   }

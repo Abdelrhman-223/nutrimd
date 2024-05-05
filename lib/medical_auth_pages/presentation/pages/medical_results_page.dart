@@ -12,7 +12,7 @@ import 'package:nutrimd/medical_auth_pages/presentation/widgets/result_status.da
 import 'package:nutrimd/medical_auth_pages/presentation/widgets/results_page_divider.dart';
 import '../../../core/styles/dividers.dart';
 import '../../../core/utils/app_colors.dart';
-import '../../../core/widgets/app_button.dart';
+import '../../../core/components/app_button.dart';
 import '../../../core/widgets/logo_title.dart';
 import '../manager/disease_identification.dart';
 import 'enter_test_results.dart';
@@ -63,7 +63,7 @@ class MedicalResults extends StatelessWidget {
 
                       /// Good Results
                       const ResultsDivider(status: true),
-                      spaceVertical16(),
+                      spaceVertical8(),
                       if (!diseaseIdentificationController.userHasSugar)
                         ResultStatus(
                             disease: "Diabetes",
@@ -84,7 +84,7 @@ class MedicalResults extends StatelessWidget {
 
                       /// Bad Results
                       const ResultsDivider(status: false),
-                      spaceVertical16(),
+                      spaceVertical8(),
                       if (diseaseIdentificationController.userHasSugar)
                         ResultStatus(
                             disease: "Diabetes",
@@ -101,7 +101,6 @@ class MedicalResults extends StatelessWidget {
                         ResultStatus(
                             disease: "Opicity",
                             status: diseaseIdentificationController.userHasOpicity),
-                      spaceVertical16(),
 
                       AppButton(
                         buttonFunction: () {

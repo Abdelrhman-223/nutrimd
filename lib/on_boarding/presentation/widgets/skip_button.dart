@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import '../../../authentication_pages/presentation/pages/auth_page.dart';
 import '../../../core/utils/app_colors.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import '../../../diet_protocol/presentation/pages/home_page_diet_protocol.dart';
+import '../../../home_page.dart';
 
 class SkipButton extends StatelessWidget {
   const SkipButton({super.key});
