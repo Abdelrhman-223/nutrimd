@@ -1,4 +1,4 @@
-class IconPaths {
+class AppIcons {
   static String directArrow = "assets/icons/direct_arrow.svg";
   static String directArrowOutline = "assets/icons/direct_arrow_outline.svg";
   static String rightArrow = "assets/icons/right_arrow.svg";
@@ -48,5 +48,7 @@ class IconPaths {
   static String product = "assets/icons/product.svg";
   static String chatBot = "assets/icons/chatbot.svg";
   static String profile = "assets/icons/profile.svg";
+  static String send = "assets/icons/send.svg";
+  static String mic = "assets/icons/mic.svg";
 //static String  = "assets/icons/.svg";
 }

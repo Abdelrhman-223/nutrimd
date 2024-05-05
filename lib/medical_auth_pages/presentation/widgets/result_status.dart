@@ -34,7 +34,7 @@ class ResultStatus extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SvgPicture.asset(
-            (!status) ? IconPaths.goodForYou : IconPaths.badForYou,
+            (!status) ? AppIcons.goodForYou : AppIcons.badForYou,
           ),
           spaceHiresontal16(),
           Text(

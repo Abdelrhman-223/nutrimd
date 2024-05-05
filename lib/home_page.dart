@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:nutrimd/chatbot_page/presentation/pages/chatbot_page.dart';
 import 'package:nutrimd/core/components/bottom_nav_bar_button.dart';
 import 'package:nutrimd/core/utils/app_colors.dart';
 import 'package:nutrimd/core/utils/app_icons.dart';
@@ -36,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
     DietProtocolPage(),
     DietProtocolPage(),
     DietProtocolPage(),
-    DietProtocolPage(),
+    ChatBotPage(),
   ];
 
   @override
@@ -46,6 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (buttonController) {
           return Scaffold(
             backgroundColor: AppColors.fifthColor,
+            drawer: SafeArea(
+              child: Drawer(
+                backgroundColor: AppColors.thirdColor,
+                shadowColor: AppColors.fifthColor,
+              ),
+            ),
             appBar: AppBar(
               centerTitle: true,
               backgroundColor: AppColors.fifthColor,
@@ -71,6 +78,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: AppColors.mainColor,
                 ),
               ),
+              actions: [
+                Builder(
+                  builder: (context) {
+                    return IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: SvgPicture.asset(AppIcons.menu),
+                    );
+                  }
+                ),
+              ],
             ),
             body: IndexedStack(
               index: buttonController.activeButtonIndex,
@@ -84,17 +103,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  BottomNavBarButton(buttonIndex: 0, buttonIconPath: IconPaths.settings),
-                  BottomNavBarButton(buttonIndex: 1, buttonIconPath: IconPaths.history),
+                  BottomNavBarButton(buttonIndex: 0, buttonIconPath: AppIcons.settings),
+                  BottomNavBarButton(buttonIndex: 1, buttonIconPath: AppIcons.history),
                   (buttonController.activeButtonIndex == 2)
                       ? BottomNavBarButton(
                           buttonIndex: 2,
-                          buttonIconPath: IconPaths.scanner,
+                          buttonIconPath: AppIcons.scanner,
                           activeScanner: true,
                         )
-                      : BottomNavBarButton(buttonIndex: 2, buttonIconPath: IconPaths.home,),
-                  BottomNavBarButton(buttonIndex: 3, buttonIconPath: IconPaths.product),
-                  BottomNavBarButton(buttonIndex: 4, buttonIconPath: IconPaths.chatBot),
+                      : BottomNavBarButton(
+                          buttonIndex: 2,
+                          buttonIconPath: AppIcons.home,
+                        ),
+                  BottomNavBarButton(buttonIndex: 3, buttonIconPath: AppIcons.product),
+                  BottomNavBarButton(buttonIndex: 4, buttonIconPath: AppIcons.chatBot),
                 ],
               ),
             ),

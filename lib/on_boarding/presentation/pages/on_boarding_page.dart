@@ -63,12 +63,12 @@ class _OnBoardingState extends State<OnBoarding> {
                         //Previous page Button and if the number of page greater than 1 show the button other of that make a transparent button and that to show every thing in the same place.
                         (sliderButtonController.pageIndex > 1)
                             ? SliderButton(
-                                iconPath: IconPaths.leftArrow,
+                                iconPath: AppIcons.leftArrow,
                                 hiddenButton: false,
                                 buttonType: false,
                               )
                             : SliderButton(
-                                iconPath: IconPaths.leftArrow,
+                                iconPath: AppIcons.leftArrow,
                                 hiddenButton: true,
                                 buttonType: false,
                               ),
@@ -86,7 +86,7 @@ class _OnBoardingState extends State<OnBoarding> {
 
                         // Next Page Button
                         SliderButton(
-                          iconPath: IconPaths.rightArrow,
+                          iconPath: AppIcons.rightArrow,
                           hiddenButton: false,
                           buttonType: true,
                         ),

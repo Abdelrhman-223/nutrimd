@@ -50,7 +50,7 @@ class PasswordField extends StatelessWidget {
                   hiddenPass = !hiddenPass;
                 });
               },
-              icon: (hiddenPass)?SvgPicture.asset(IconPaths.eyeHidden):SvgPicture.asset(IconPaths.eyeVisible),
+              icon: (hiddenPass)?SvgPicture.asset(AppIcons.eyeHidden):SvgPicture.asset(AppIcons.eyeVisible),
             ),
           ),
         ),
