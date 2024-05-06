@@ -50,5 +50,7 @@ class AppIcons {
   static String profile = "assets/icons/profile.svg";
   static String send = "assets/icons/send.svg";
   static String mic = "assets/icons/mic.svg";
+  static String arrowCircleLeft = "assets/icons/arrow_circle_left.svg";
+  static String arrowCircleRight = "assets/icons/arrow_circle_right.svg";
 //static String  = "assets/icons/.svg";
 }

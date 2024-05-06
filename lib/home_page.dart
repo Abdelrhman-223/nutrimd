@@ -12,10 +12,13 @@ import 'package:get/get.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:nutrimd/chatbot_page/presentation/pages/chatbot_page.dart';
 import 'package:nutrimd/core/components/bottom_nav_bar_button.dart';
+import 'package:nutrimd/core/styles/dividers.dart';
 import 'package:nutrimd/core/utils/app_colors.dart';
 import 'package:nutrimd/core/utils/app_icons.dart';
 import 'package:nutrimd/core/utils/app_images.dart';
 import 'package:nutrimd/diet_protocol/presentation/pages/diet_protocol_page.dart';
+import 'package:nutrimd/history_page/presentation/pages/history_page.dart';
+import 'package:nutrimd/products_page/presentation/pages/products_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -25,8 +28,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  double userImageSize = 100;
   List<String> pagesTitle = [
-    "Settings",
+    "Profile",
     "History",
     "Diet Protocol",
     "Products",
@@ -34,9 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   List<Widget> bottomNavBarPages = [
     DietProtocolPage(),
+    HistoryPage(),
     DietProtocolPage(),
-    DietProtocolPage(),
-    DietProtocolPage(),
+    ProductsPage(),
     ChatBotPage(),
   ];
 
@@ -49,8 +53,67 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: AppColors.fifthColor,
             drawer: SafeArea(
               child: Drawer(
+                width: MediaQuery.of(context).size.width * 0.8,
                 backgroundColor: AppColors.thirdColor,
-                shadowColor: AppColors.fifthColor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // SliverList.builder(itemBuilder: itemBuilder),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.fifthColor,
+                        borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(15),
+                        ),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: userImageSize,
+                            height: userImageSize,
+                            margin: const EdgeInsets.only(
+                              right: 16,
+                              top: 16,
+                              bottom: 16,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.fifthColor,
+                              borderRadius: BorderRadius.circular(userImageSize / 2),
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(ImagePaths.user),
+                              ),
+                              border: GradientBoxBorder(
+                                  width: 10, gradient: AppColors.hRtLLinearDarkGrid),
+                            ),
+                          ),
+                          Text(
+                            "User Name",
+                            style: TextStyle(
+                              color: AppColors.mainColor,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    spaceVertical16(),
+                    ListTile(
+                      onTap: () {},
+                      leading: SvgPicture.asset(AppIcons.settings),
+                      horizontalTitleGap: 8,
+                      title: Text(
+                        "Settings",
+                        style: TextStyle(
+                          color: AppColors.fifthColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             appBar: AppBar(
@@ -79,19 +142,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               actions: [
-                Builder(
-                  builder: (context) {
-                    return IconButton(
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                      icon: SvgPicture.asset(AppIcons.menu),
-                    );
-                  }
-                ),
+                Builder(builder: (context) {
+                  return IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    icon: SvgPicture.asset(AppIcons.menu),
+                  );
+                }),
               ],
             ),
             body: IndexedStack(
+              sizing: StackFit.expand,
               index: buttonController.activeButtonIndex,
               children: bottomNavBarPages,
             ),
@@ -103,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  BottomNavBarButton(buttonIndex: 0, buttonIconPath: AppIcons.settings),
+                  BottomNavBarButton(buttonIndex: 0, buttonIconPath: AppIcons.profile),
                   BottomNavBarButton(buttonIndex: 1, buttonIconPath: AppIcons.history),
                   (buttonController.activeButtonIndex == 2)
                       ? BottomNavBarButton(

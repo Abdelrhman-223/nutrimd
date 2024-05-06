@@ -9,4 +9,7 @@ class ImagePaths {
   static String barcodeSvg = "assets/images/intro_images/barcode.svg";
   static String smartwatchSvg = "assets/images/intro_images/smartwatch.svg";
 
+  // Global images
+  static String user = "assets/images/user.png";
+
 }

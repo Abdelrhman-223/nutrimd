@@ -8,7 +8,6 @@
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import '../manager/auth_tab_controller.dart';
 import 'package:nutrimd/core/utils/app_fonts.dart';
 import 'package:nutrimd/core/styles/dividers.dart';
 import 'package:nutrimd/core/utils/app_colors.dart';
@@ -16,6 +15,8 @@ import 'package:nutrimd/core/widgets/logo_title.dart';
 import 'package:nutrimd/authentication_pages/presentation/pages/sign_in_page.dart';
 import 'package:nutrimd/authentication_pages/presentation/pages/sign_up_page.dart';
 import 'package:nutrimd/authentication_pages/presentation/widgets/auth_tab_bar.dart';
+
+import '../manager/auth_tab_controller.dart';
 
 
 class AuthPage extends StatelessWidget {

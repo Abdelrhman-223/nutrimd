@@ -9,21 +9,21 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:nutrimd/authentication_pages/presentation/widgets/auth_tab_bar_button.dart';
-import '../manager/auth_tab_controller.dart';
+import 'package:nutrimd/history_page/presentation/widgets/history_tab_bar_button.dart';
+import '../manager/history_tab_controller.dart';
 
-class AuthTabBar extends StatelessWidget {
-  const AuthTabBar({super.key});
+class HistoryTabBar extends StatelessWidget {
+  const HistoryTabBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthTabController>(
-    init: AuthTabController(),
+    return GetBuilder<HistoryTabController>(
+    init: HistoryTabController(),
       builder: (context) {
         return const Row(
           children: [
-            TabBarButton(buttonTitle: "Sign-In", buttonType: true),
-            TabBarButton(buttonTitle: "Sign-Up", buttonType: false),
+            HistoryTabBarButton(buttonTitle: "Used", buttonType: true),
+            HistoryTabBarButton(buttonTitle: "Purchased", buttonType: false),
           ],
         );
       }

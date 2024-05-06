@@ -13,7 +13,7 @@ class AppColors {
   static Color thirdColor = const Color.fromRGBO(59, 183, 119, 1);
   static Color fourthColor = const Color.fromRGBO(76, 112, 120, 1);
   static Color fifthColor = const Color.fromRGBO(248, 245, 236, 1);
-  static Color redColor = const Color.fromRGBO(144, 0, 0, 1);
+  static Color redColor = const Color.fromRGBO(186, 42, 42, 1);
 
   static LinearGradient vUtDLinearDarkGrid = LinearGradient(
     begin: Alignment.topCenter,
