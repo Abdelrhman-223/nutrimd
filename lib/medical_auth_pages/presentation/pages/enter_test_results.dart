@@ -9,6 +9,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nutrimd/core/components/app_button.dart';
+import 'package:nutrimd/core/widgets/page_separator.dart';
+import 'package:nutrimd/main.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/manager/disease_identification.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_results_page.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/widgets/small_text_field_row.dart';
@@ -33,6 +35,8 @@ class EnterTestResults extends StatelessWidget {
   TextEditingController a1CTestSugarController = TextEditingController();
   TextEditingController weightObesityController = TextEditingController();
   TextEditingController heightObesityController = TextEditingController();
+  TextEditingController fatsObesityController = TextEditingController();
+  TextEditingController waterObesityController = TextEditingController();
 
   DiseaseIdentification diseaseIdentificationController = Get.put(DiseaseIdentification());
   AuthDataController authDataController = Get.put(AuthDataController());
@@ -60,7 +64,7 @@ class EnterTestResults extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Text(
-                  "Enter required medical tests results",
+                  "Enter required tests results",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: AppColors.mainColor,
@@ -72,6 +76,35 @@ class EnterTestResults extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: [
+                    const PageSeparator(separatorTitle: "Physical Data"),
+                    spaceVertical16(),
+
+                    /// Obesity Section:
+                    Text(
+                      "Obesity:",
+                      style: TextStyle(
+                        color: AppColors.mainColor,
+                        fontSize: AppFonts.myH8,
+                      ),
+                    ),
+                    SmallTextFieldRow(
+                      firstFieldTitle: "Weight",
+                      secondFieldTitle: "Height",
+                      firstFieldController: weightObesityController,
+                      secondFieldController: heightObesityController,
+                    ),
+                    SmallTextFieldRow(
+                      firstFieldTitle: "Fats",
+                      secondFieldTitle: "Water",
+                      firstFieldController: fatsObesityController,
+                      secondFieldController: waterObesityController,
+                    ),
+
+                    spaceVertical16(),
+
+                    const PageSeparator(separatorTitle: "Medical Data"),
+                    spaceVertical16(),
+
                     /// Cholesterol Section:
                     Text(
                       "Cholesterol:",
@@ -137,22 +170,6 @@ class EnterTestResults extends StatelessWidget {
                     ),
                     spaceVertical16(),
 
-                    /// Obesity Section:
-                    Text(
-                      "Obesity:",
-                      style: TextStyle(
-                        color: AppColors.mainColor,
-                        fontSize: AppFonts.myH8,
-                      ),
-                    ),
-                    SmallTextFieldRow(
-                      firstFieldTitle: "Weight",
-                      secondFieldTitle: "Height",
-                      firstFieldController: weightObesityController,
-                      secondFieldController: heightObesityController,
-                    ),
-
-                    spaceVertical16(),
                     Align(
                       alignment: Alignment.center,
                       child: AppButton(
@@ -175,6 +192,33 @@ class EnterTestResults extends StatelessWidget {
                           print(testsResults);
                           diseaseIdentificationController.addResults(
                               testsResults, authDataController.radioButtonValues["gender"]!);
+
+                          sharedPreferences.setDouble("completeCholesterol",
+                              double.parse(completeCholesterolController.text));
+                          sharedPreferences.setDouble(
+                              "hdlCholesterol", double.parse(hdlCholesterolController.text));
+                          sharedPreferences.setDouble(
+                              "ldlCholesterol", double.parse(ldlCholesterolController.text));
+                          sharedPreferences.setDouble("triglycerideCholesterol",
+                              double.parse(triglycerideCholesterolController.text));
+                          sharedPreferences.setDouble(
+                              "diastolicPressure", double.parse(diastolicPressureController.text));
+                          sharedPreferences.setDouble(
+                              "systolicPressure", double.parse(systolicPressureController.text));
+                          sharedPreferences.setDouble(
+                              "fastingTestSugar", double.parse(fastingTestSugarController.text));
+                          sharedPreferences.setDouble(
+                              "oralTestSugar", double.parse(oralTestSugarController.text));
+                          sharedPreferences.setDouble(
+                              "a1CTestSugar", double.parse(a1CTestSugarController.text));
+                          sharedPreferences.setDouble(
+                              "weightObesity", double.parse(weightObesityController.text));
+                          sharedPreferences.setDouble(
+                              "heightObesity", double.parse(heightObesityController.text));
+                          sharedPreferences.setDouble(
+                              "fatsObesity", double.parse(fatsObesityController.text));
+                          sharedPreferences.setDouble(
+                              "waterObesity", double.parse(waterObesityController.text));
                           Get.to(const MedicalResults());
                         },
                         buttonTitle: "Enter Data",

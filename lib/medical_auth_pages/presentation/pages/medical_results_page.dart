@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nutrimd/home_page.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/widgets/result_status.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/widgets/results_page_divider.dart';
 import '../../../core/styles/dividers.dart';
@@ -104,7 +105,7 @@ class MedicalResults extends StatelessWidget {
 
                       AppButton(
                         buttonFunction: () {
-                          Get.to(EnterTestResults());
+                          Get.to(const MyHomePage());
                         },
                         buttonTitle: "Continue",
                       ),

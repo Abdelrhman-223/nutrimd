@@ -14,7 +14,14 @@ class AuthDataController extends GetxController {
     "familyType": "Individual",
   };
 
+  String birthDate = "";
+
   saveRadioButtonValue(String id, value){
     radioButtonValues[id] = value;
+  }
+
+  getBirthDate(String value){
+    birthDate = value;
+    update();
   }
 }

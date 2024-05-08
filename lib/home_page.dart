@@ -18,7 +18,11 @@ import 'package:nutrimd/core/utils/app_icons.dart';
 import 'package:nutrimd/core/utils/app_images.dart';
 import 'package:nutrimd/diet_protocol/presentation/pages/diet_protocol_page.dart';
 import 'package:nutrimd/history_page/presentation/pages/history_page.dart';
+import 'package:nutrimd/on_boarding/presentation/pages/splash_screen.dart';
 import 'package:nutrimd/products_page/presentation/pages/products_page.dart';
+import 'package:nutrimd/profile_page/presentation/pages/profile_page.dart';
+
+import 'main.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -37,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     "Chatbot",
   ];
   List<Widget> bottomNavBarPages = [
-    DietProtocolPage(),
+    const ProfilePage(),
     HistoryPage(),
     DietProtocolPage(),
     ProductsPage(),
@@ -108,6 +112,65 @@ class _MyHomePageState extends State<MyHomePage> {
                         "Settings",
                         style: TextStyle(
                           color: AppColors.fifthColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            backgroundColor: AppColors.fifthColor,
+                            alignment: Alignment.center,
+                            actionsAlignment: MainAxisAlignment.spaceBetween,
+                            actions: [
+                              TextButton(
+                                child: Text(
+                                  "Close",
+                                  style: TextStyle(
+                                    color: AppColors.mainColor,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Get.back();
+                                },
+                              ),
+                              TextButton(
+                                child: Text(
+                                  "Logout",
+                                  style: TextStyle(
+                                    color: AppColors.redColor,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  sharedPreferences.setBool("logging", false);
+                                  Get.offAll(const SplashScreen());
+                                },
+                              ),
+                            ],
+                            content: Text(
+                              "Are you sure to log out?",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: AppColors.mainColor,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      leading: SvgPicture.asset(
+                        AppIcons.logout,
+                        color: AppColors.redColor,
+                      ),
+                      horizontalTitleGap: 8,
+                      title: Text(
+                        "Log-Out",
+                        style: TextStyle(
+                          color: AppColors.redColor,
                           fontSize: 18,
                         ),
                       ),

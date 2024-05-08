@@ -79,6 +79,8 @@ class ChatBotPage extends StatelessWidget {
                                         chatBotController.chatMessages.length % 2 == 1) {
                                       chatBotController
                                           .addNewMessages(chatBotMessageController.text);
+                                      chatBotController.chatbotFunction(
+                                          {"":chatBotMessageController.text});
                                       chatBotMessageController.clear();
                                     }
                                   },

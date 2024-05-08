@@ -30,6 +30,7 @@ class AppButton extends StatelessWidget {
         ),
         child: Text(
           buttonTitle,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: AppColors.mainColor,
             fontSize: AppFonts.myH7,

@@ -1,7 +1,9 @@
 import 'package:nutrimd/home_page.dart';
+import 'package:nutrimd/medical_auth_pages/presentation/pages/enter_test_results.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_tests_page.dart';
 
 import '../../../core/widgets/logo_title.dart';
+import '../../../main.dart';
 import 'on_boarding_page.dart';
 import 'package:flutter/material.dart';
 import '../../../core/utils/app_colors.dart';
@@ -19,10 +21,13 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       backgroundColor: AppColors.fifthColor,
-      nextScreen: const MyHomePage(),//OnBoarding(),
+      // nextScreen: const MyHomePage(),
+      nextScreen: (!sharedPreferences.getBool("logging")!) ? const OnBoarding() : const MyHomePage(),
+      //EnterTestResults(),//
       splashIconSize: 175,
       splash: const LogoAndTitle(
-        fieldAlignment: CrossAxisAlignment.center, logoWidth: 150,
+        fieldAlignment: CrossAxisAlignment.center,
+        logoWidth: 150,
       ),
     );
   }

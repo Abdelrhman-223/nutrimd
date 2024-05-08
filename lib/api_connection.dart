@@ -15,10 +15,13 @@ import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_tests_page
 class ApiManager extends GetxController {
   //192.168.199.119 //// 10.0.2.2:80 //// 192.168.1.9:80
   // static String urlBase = "192.168.199.119:80";
-  static String urlBase = "192.168.165.119:80";
+  // chatbot base url = 192.168.1.23:5000
+  static String urlBase = "192.168.1.25:5000";
   Map<String, String> urlDomains = {
     "signIn": "nutrimd_php/authentication/sign_in.php",
     "signUp": "nutrimd_php/authentication/sign_up.php",
+
+    "chatbot": "chatbot/quit"
   };
 
   late var responseData;
