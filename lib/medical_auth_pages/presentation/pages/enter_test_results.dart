@@ -11,9 +11,9 @@ import 'package:get/get.dart';
 import 'package:nutrimd/core/components/app_button.dart';
 import 'package:nutrimd/core/widgets/page_separator.dart';
 import 'package:nutrimd/main.dart';
+import 'package:nutrimd/medical_auth_pages/data/data_sources/medical_api.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/manager/disease_identification.dart';
-import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_results_page.dart';
-import 'package:nutrimd/medical_auth_pages/presentation/widgets/small_text_field_row.dart';
+import 'package:nutrimd/core/widgets/small_text_field_row.dart';
 import '../../../authentication_pages/presentation/manager/auth_data_controller.dart';
 import '../../../core/styles/dividers.dart';
 import '../../../core/utils/app_colors.dart';
@@ -40,6 +40,7 @@ class EnterTestResults extends StatelessWidget {
 
   DiseaseIdentification diseaseIdentificationController = Get.put(DiseaseIdentification());
   AuthDataController authDataController = Get.put(AuthDataController());
+  MedicalApiManager medicalApiManager = Get.put(MedicalApiManager());
 
   @override
   Widget build(BuildContext context) {
@@ -92,12 +93,14 @@ class EnterTestResults extends StatelessWidget {
                       secondFieldTitle: "Height",
                       firstFieldController: weightObesityController,
                       secondFieldController: heightObesityController,
+                      fieldKeyboardType: TextInputType.number,
                     ),
                     SmallTextFieldRow(
                       firstFieldTitle: "Fats",
                       secondFieldTitle: "Water",
                       firstFieldController: fatsObesityController,
                       secondFieldController: waterObesityController,
+                      fieldKeyboardType: TextInputType.number,
                     ),
 
                     spaceVertical16(),
@@ -123,6 +126,7 @@ class EnterTestResults extends StatelessWidget {
                       secondFieldTitle: "LDL",
                       firstFieldController: hdlCholesterolController,
                       secondFieldController: ldlCholesterolController,
+                      fieldKeyboardType: TextInputType.number,
                     ),
                     AppTextField(
                       textFieldTitle: "Triglyceride",
@@ -145,6 +149,7 @@ class EnterTestResults extends StatelessWidget {
                       secondFieldTitle: "Systolic",
                       firstFieldController: diastolicPressureController,
                       secondFieldController: systolicPressureController,
+                      fieldKeyboardType: TextInputType.number,
                     ),
 
                     spaceVertical16(),
@@ -162,6 +167,7 @@ class EnterTestResults extends StatelessWidget {
                       secondFieldTitle: "Oral test",
                       firstFieldController: fastingTestSugarController,
                       secondFieldController: oralTestSugarController,
+                      fieldKeyboardType: TextInputType.number,
                     ),
                     AppTextField(
                       textFieldTitle: "A1C test",
@@ -174,24 +180,36 @@ class EnterTestResults extends StatelessWidget {
                       alignment: Alignment.center,
                       child: AppButton(
                         buttonFunction: () {
-                          Map<String, double> testsResults = {
-                            "completeCholesterol": double.parse(completeCholesterolController.text),
-                            "hdlCholesterol": double.parse(hdlCholesterolController.text),
-                            "ldlCholesterol": double.parse(ldlCholesterolController.text),
-                            "triglycerideCholesterol":
-                                double.parse(triglycerideCholesterolController.text),
-                            "diastolicPressure": double.parse(diastolicPressureController.text),
-                            "systolicPressure": double.parse(systolicPressureController.text),
-                            "fastingTestSugar": double.parse(fastingTestSugarController.text),
-                            "oralTestSugar": double.parse(oralTestSugarController.text),
-                            "a1CTestSugar": double.parse(a1CTestSugarController.text),
-                            "weightObesity": double.parse(weightObesityController.text),
-                            "heightObesity": double.parse(heightObesityController.text),
+                          Map<String, String> medicalTestsResults = {
+                            "complete_cholesterol": (completeCholesterolController.text),
+                            "hdl_cholesterol": (hdlCholesterolController.text),
+                            "ldl_cholesterol": (ldlCholesterolController.text),
+                            "triglyceride_cholesterol": (triglycerideCholesterolController.text),
+                            "diastolic_pressure": (diastolicPressureController.text),
+                            "systolic_pressure": (systolicPressureController.text),
+                            "fasting_test_diabetes": (fastingTestSugarController.text),
+                            "oral_test_diabetes": (oralTestSugarController.text),
+                            "a1c_test_diabetes": (a1CTestSugarController.text),
+                            "date_time": DateTime.now().toString(),
+                            "user_id": sharedPreferences.getString("userId")!,
+                          };
+                          Map<String, String> physicalTestsResults = {
+                            "weight": (weightObesityController.text),
+                            "height": (heightObesityController.text),
+                            "fats": (fatsObesityController.text),
+                            "water": (waterObesityController.text),
+                            "date_time": DateTime.now().toString(),
+                            "user_id": sharedPreferences.getString("userId")!,
                           };
 
-                          print(testsResults);
+                          medicalApiManager.medicalAuthFunction(medicalTestsResults);
+                          medicalApiManager.physicalAuthFunction(physicalTestsResults);
+
                           diseaseIdentificationController.addResults(
-                              testsResults, authDataController.radioButtonValues["gender"]!);
+                            medicalTestsResults,
+                            physicalTestsResults,
+                            authDataController.radioButtonValues["gender"]!,
+                          );
 
                           sharedPreferences.setDouble("completeCholesterol",
                               double.parse(completeCholesterolController.text));
@@ -219,7 +237,6 @@ class EnterTestResults extends StatelessWidget {
                               "fatsObesity", double.parse(fatsObesityController.text));
                           sharedPreferences.setDouble(
                               "waterObesity", double.parse(waterObesityController.text));
-                          Get.to(const MedicalResults());
                         },
                         buttonTitle: "Enter Data",
                       ),

@@ -13,13 +13,15 @@ import 'package:http/http.dart' as http;
 import '../../../api_connection.dart';
 
 class ChatBotController extends GetxController {
-  List<String> chatMessages = ["Hello '@',\nHow can i help you :)"];
+  List<String> chatMessages = [
+    "Hello ${sharedPreferences.getString('firstName')!},\nHow can i help you :)"
+  ];
 
   /*String getInitMessage(String username) {
     return ;
   }*/
 
- /* addAllMessages(List<String> messages) {
+  /* addAllMessages(List<String> messages) {
     chatMessages = messages;
 
     update();
@@ -32,14 +34,13 @@ class ChatBotController extends GetxController {
     update();
   }
 
-
-  chatbotFunction(Map<String, dynamic> urlRequest) async {
-    /*var url = Uri.http(ApiManager.urlBase, ApiManager().urlDomains["chatbot"]!, urlRequest);*/
+  chatbotFunction(String urlRequest) async {
+    var uri = "${ApiConnections().urlDomains["chatbot"]!}/$urlRequest";
+    var url = Uri.http(ApiConnections.urlBase, uri);
     /*
     var url = Uri(path: "http://${ApiManager.urlBase}/${ApiManager().urlDomains["chatbot"]!}/$urlRequest");*/
-    var url = Uri(query: "http://${ApiManager.urlBase}/${ApiManager().urlDomains["chatbot"]!}");
+    /*var url = Uri(query: "http://${ApiManager.urlBase}/${ApiManager().urlDomains["chatbot"]!}");*/
 
-    print(url);
     var response = await http.get(url);
     var responseData = jsonDecode(response.body);
 

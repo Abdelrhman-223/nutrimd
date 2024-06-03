@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nutrimd/home_page.dart';
+import 'package:nutrimd/home_page/presentation/pages/home_page.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/widgets/result_status.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/widgets/results_page_divider.dart';
 import '../../../core/styles/dividers.dart';

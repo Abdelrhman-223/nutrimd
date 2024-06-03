@@ -8,13 +8,15 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../core/widgets/app_text_field.dart';
+import 'app_text_field.dart';
 
 class SmallTextFieldRow extends StatelessWidget {
-  const SmallTextFieldRow({super.key, required this.firstFieldTitle, required this.secondFieldTitle, required this.firstFieldController, required this.secondFieldController});
+  const SmallTextFieldRow({super.key, required this.firstFieldTitle, required this.secondFieldTitle, required this.firstFieldController, required this.secondFieldController, required this.fieldKeyboardType});
 
   final String firstFieldTitle, secondFieldTitle;
   final TextEditingController firstFieldController, secondFieldController;
+  final TextInputType fieldKeyboardType;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -25,7 +27,7 @@ class SmallTextFieldRow extends StatelessWidget {
           child: AppTextField(
             textFieldTitle: firstFieldTitle,
             fieldController: firstFieldController,
-            fieldKeyboardType: TextInputType.number,
+            fieldKeyboardType: fieldKeyboardType,
           ),
         ),
         SizedBox(
@@ -33,7 +35,7 @@ class SmallTextFieldRow extends StatelessWidget {
           child: AppTextField(
             textFieldTitle: secondFieldTitle,
             fieldController: secondFieldController,
-            fieldKeyboardType: TextInputType.number,
+            fieldKeyboardType: fieldKeyboardType,
           ),
         ),
       ],

@@ -30,6 +30,7 @@ class MessageField extends StatelessWidget {
         ),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+          margin: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             color: (isItFromUser) ? AppColors.mainColor : AppColors.secondColor,
             borderRadius: (isItFromUser)

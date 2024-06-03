@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:nutrimd/authentication_pages/presentation/manager/auth_data_controller.dart';
 
 class DiseaseIdentification extends GetxController {
-  Map<String, double> testsResults = {};
+  Map<String, dynamic> medicalTestsResults = {}, physicalTestsResults = {};
   String gender = "";
   bool userHasCholesterol = false,
       userHasPressure = false,
@@ -18,19 +18,21 @@ class DiseaseIdentification extends GetxController {
       userHasOpicity = false;
 
   Map<String, String> testsResultsStatus = {
-    "completeCholesterol": "",
-    "hdlCholesterol": "",
-    "ldlCholesterol": "",
-    "triglycerideCholesterol": "",
+    "complete_cholesterol": "",
+    "hdl_cholesterol": "",
+    "ldl_cholesterol": "",
+    "triglyceride_cholesterol": "",
     "pressure": "",
-    "fastingTestSugar": "",
-    "oralTestSugar": "",
-    "a1CTestSugar": "",
+    "fasting_test_diabetes": "",
+    "oral_test_diabetes": "",
+    "a1c_test_diabetes": "",
     "obesity": "",
   };
 
-  addResults(Map<String, double> results, String userGender) {
-    testsResults = results;
+  addResults(Map<String, dynamic> medicalResults, Map<String, dynamic> physicalResults,
+      String userGender) {
+    medicalTestsResults = medicalResults;
+    physicalTestsResults = physicalResults;
     gender = userGender;
     identifyCholesterol();
     identifyPressure();
@@ -41,54 +43,58 @@ class DiseaseIdentification extends GetxController {
   }
 
   identifyCholesterol() {
-    if (testsResults["completeCholesterol"]! < 200) {
-      testsResultsStatus["completeCholesterol"] = "normal";
-    } else if (testsResults["completeCholesterol"]! >= 200 &&
-        testsResults["completeCholesterol"]! <= 239) {
-      testsResultsStatus["completeCholesterol"] = "high";
+    double completeCholesterol = double.parse(medicalTestsResults["complete_cholesterol"]!);
+    double ldlCholesterol = double.parse(medicalTestsResults["ldl_cholesterol"]!);
+    double hdlCholesterol = double.parse(medicalTestsResults["hdl_cholesterol"]!);
+    double triglycerideCholesterol = double.parse(medicalTestsResults["triglyceride_cholesterol"]!);
+
+    //
+    if (completeCholesterol < 200) {
+      testsResultsStatus["complete_cholesterol"] = "normal";
+    } else if (completeCholesterol >= 200 && completeCholesterol <= 239) {
+      testsResultsStatus["complete_cholesterol"] = "high";
       userHasCholesterol = true;
-    } else if (testsResults["completeCholesterol"]! >= 240) {
-      testsResultsStatus["completeCholesterol"] = "very high";
+    } else if (completeCholesterol >= 240) {
+      testsResultsStatus["complete_cholesterol"] = "very high";
       userHasCholesterol = true;
     }
     //
-    if (testsResults["ldlCholesterol"]! < 130) {
-      testsResultsStatus["ldlCholesterol"] = "normal";
-    } else if (testsResults["ldlCholesterol"]! >= 130 && testsResults["ldlCholesterol"]! <= 159) {
-      testsResultsStatus["ldlCholesterol"] = "high";
-    } else if (testsResults["ldlCholesterol"]! >= 240) {
-      testsResultsStatus["ldlCholesterol"] = "very high";
+    if (ldlCholesterol < 130) {
+      testsResultsStatus["ldl_cholesterol"] = "normal";
+    } else if (ldlCholesterol >= 130 && ldlCholesterol <= 159) {
+      testsResultsStatus["ldl_cholesterol"] = "high";
+    } else if (ldlCholesterol >= 240) {
+      testsResultsStatus["ldl_cholesterol"] = "very high";
       userHasCholesterol = true;
     }
     //
     if (gender == "Male") {
-      if (testsResults["hdlCholesterol"]! < 40) {
+      if (hdlCholesterol < 40) {
         userHasCholesterol = true;
-        testsResultsStatus["hdlCholesterol"] = "low";
-      } else if (testsResults["hdlCholesterol"]! >= 40 && testsResults["hdlCholesterol"]! <= 59) {
-        testsResultsStatus["hdlCholesterol"] = "normal";
-      } else if (testsResults["hdlCholesterol"]! >= 60) {
-        testsResultsStatus["hdlCholesterol"] = "high";
+        testsResultsStatus["hdl_cholesterol"] = "low";
+      } else if (hdlCholesterol >= 40 && hdlCholesterol <= 59) {
+        testsResultsStatus["hdl_cholesterol"] = "normal";
+      } else if (hdlCholesterol >= 60) {
+        testsResultsStatus["hdl_cholesterol"] = "high";
       }
     } else {
-      if (testsResults["hdlCholesterol"]! < 50) {
+      if (hdlCholesterol < 50) {
         userHasCholesterol = true;
-        testsResultsStatus["hdlCholesterol"] = "low";
-      } else if (testsResults["hdlCholesterol"]! >= 50 && testsResults["hdlCholesterol"]! <= 69) {
-        testsResultsStatus["hdlCholesterol"] = "normal";
-      } else if (testsResults["hdlCholesterol"]! >= 70) {
-        testsResultsStatus["hdlCholesterol"] = "high";
+        testsResultsStatus["hdl_cholesterol"] = "low";
+      } else if (hdlCholesterol >= 50 && hdlCholesterol <= 69) {
+        testsResultsStatus["hdl_cholesterol"] = "normal";
+      } else if (hdlCholesterol >= 70) {
+        testsResultsStatus["hdl_cholesterol"] = "high";
       }
     }
     //
-    if (testsResults["triglycerideCholesterol"]! < 150) {
-      testsResultsStatus["triglycerideCholesterol"] = "normal";
-    } else if (testsResults["triglycerideCholesterol"]! >= 150 &&
-        testsResults["triglycerideCholesterol"]! <= 199) {
-      testsResultsStatus["triglycerideCholesterol"] = "high";
+    if (triglycerideCholesterol < 150) {
+      testsResultsStatus["triglyceride_cholesterol"] = "normal";
+    } else if (triglycerideCholesterol >= 150 && triglycerideCholesterol <= 199) {
+      testsResultsStatus["triglyceride_cholesterol"] = "high";
       userHasCholesterol = true;
-    } else if (testsResults["triglycerideCholesterol"]! >= 200) {
-      testsResultsStatus["triglycerideCholesterol"] = "very high";
+    } else if (triglycerideCholesterol >= 200) {
+      testsResultsStatus["triglyceride_cholesterol"] = "very high";
       userHasCholesterol = true;
     }
 
@@ -96,8 +102,8 @@ class DiseaseIdentification extends GetxController {
   }
 
   identifyPressure() {
-    double pressureHigh = testsResults["diastolicPressure"]!,
-        pressureLow = testsResults["systolicPressure"]!;
+    double pressureHigh = double.parse(medicalTestsResults["diastolic_pressure"]!),
+        pressureLow = double.parse(medicalTestsResults["systolic_pressure"]!);
     //
     if (pressureHigh < 120 && pressureLow < 80) {
       testsResultsStatus["pressure"] = "normal";
@@ -122,35 +128,37 @@ class DiseaseIdentification extends GetxController {
   }
 
   identifySugar() {
+    double fastingTestDiabetes = double.parse(medicalTestsResults["fasting_test_diabetes"]!);
+    double oralTestDiabetes = double.parse(medicalTestsResults["oral_test_diabetes"]!);
+    double a1cTestDiabetes = double.parse(medicalTestsResults["a1c_test_diabetes"]!);
     //
-    if (testsResults["fastingTestSugar"]! < 100) {
-      testsResultsStatus["fastingTestSugar"] = "normal";
-    } else if (testsResults["fastingTestSugar"]! >= 100 &&
-        testsResults["fastingTestSugar"]! <= 125) {
-      testsResultsStatus["fastingTestSugar"] = "pre-diabetic";
+    if (fastingTestDiabetes < 100) {
+      testsResultsStatus["fasting_test_diabetes"] = "normal";
+    } else if (fastingTestDiabetes >= 100 && fastingTestDiabetes <= 125) {
+      testsResultsStatus["fasting_test_diabetes"] = "pre-diabetic";
       userHasSugar = true;
-    } else if (testsResults["fastingTestSugar"]! >= 126) {
-      testsResultsStatus["fastingTestSugar"] = "diabetic";
+    } else if (fastingTestDiabetes >= 126) {
+      testsResultsStatus["fasting_test_diabetes"] = "diabetic";
       userHasSugar = true;
     }
     //
-    if (testsResults["oralTestSugar"]! < 140) {
-      testsResultsStatus["oralTestSugar"] = "normal";
-    } else if (testsResults["oralTestSugar"]! >= 140 && testsResults["oralTestSugar"]! <= 199) {
-      testsResultsStatus["oralTestSugar"] = "pre-diabetic";
+    if (oralTestDiabetes < 140) {
+      testsResultsStatus["oral_test_diabetes"] = "normal";
+    } else if (oralTestDiabetes >= 140 && oralTestDiabetes <= 199) {
+      testsResultsStatus["oral_test_diabetes"] = "pre-diabetic";
       userHasSugar = true;
-    } else if (testsResults["oralTestSugar"]! >= 200) {
-      testsResultsStatus["oralTestSugar"] = "diabetic";
+    } else if (oralTestDiabetes >= 200) {
+      testsResultsStatus["oral_test_diabetes"] = "diabetic";
       userHasSugar = true;
     }
     //
-    if (testsResults["a1CTestSugar"]! < 5.7) {
-      testsResultsStatus["a1CTestSugar"] = "normal";
-    } else if (testsResults["a1CTestSugar"]! >= 5.7 && testsResults["a1CTestSugar"]! <= 6.4) {
-      testsResultsStatus["a1CTestSugar"] = "high";
+    if (a1cTestDiabetes < 5.7) {
+      testsResultsStatus["a1c_test_diabetes"] = "normal";
+    } else if (a1cTestDiabetes >= 5.7 && a1cTestDiabetes <= 6.4) {
+      testsResultsStatus["a1c_test_diabetes"] = "high";
       userHasSugar = true;
-    } else if (testsResults["a1CTestSugar"]! >= 6.5) {
-      testsResultsStatus["a1CTestSugar"] = "diabetic";
+    } else if (a1cTestDiabetes >= 6.5) {
+      testsResultsStatus["a1c_test_diabetes"] = "diabetic";
       userHasSugar = true;
     }
 
@@ -158,16 +166,17 @@ class DiseaseIdentification extends GetxController {
   }
 
   identifyOpicity() {
-    double bmi = testsResults["weightObesity"]! /
-        (testsResults["heightObesity"]! * testsResults["heightObesity"]!);
+    double weight = double.parse(physicalTestsResults["weight"]!),
+        height = double.parse(physicalTestsResults["height"]!);
+    double bmi = weight / (height * height);
     //
     if (bmi < 18.5 && bmi <= 24.9) {
-      testsResultsStatus["oralTestSugar"] = "normal";
+      testsResultsStatus["obesity"] = "normal";
     } else if (bmi >= 25 && bmi <= 29.9) {
-      testsResultsStatus["oralTestSugar"] = "over";
+      testsResultsStatus["obesity"] = "over";
       userHasOpicity = true;
     } else if (bmi >= 30) {
-      testsResultsStatus["oralTestSugar"] = "obesity";
+      testsResultsStatus["obesity"] = "obesity";
       userHasOpicity = true;
     }
     update();

@@ -14,7 +14,7 @@ class ProfileDataField extends StatelessWidget {
   const ProfileDataField({super.key, required this.fieldTitle, required this.fieldValue});
 
   final String fieldTitle, fieldValue;
-  final double fieldHeight = 30;
+  final double fieldHeight = 40;
 
   @override
   Widget build(BuildContext context) {

@@ -12,10 +12,10 @@ import 'package:flutter/material.dart';
 import '../../../authentication_pages/presentation/pages/auth_page.dart';
 import '../../../core/utils/app_images.dart';
 import '../../../core/utils/app_strings.dart';
+import '../../../main.dart';
 import '../widgets/slider_content.dart';
 
 class SliderButtonController extends GetxController {
-
   // to change the pageView content and it starts from 1 to slider pages length.
   int pageIndex = 1;
   PageController pageController = PageController();
@@ -45,12 +45,15 @@ class SliderButtonController extends GetxController {
 
   nextPage() {
     // Change view to the next page during clicking on the next button.
-    (pageIndex < sliderPages.length)
-        ? pageController.nextPage(
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.easeIn,
-          )
-        : Get.to(const AuthPage());
+    if (pageIndex < sliderPages.length) {
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeIn,
+      );
+    } else {
+      sharedPreferences.setBool("finishOnBoarding", true);
+      Get.to(const AuthPage());
+    }
     update();
   }
 

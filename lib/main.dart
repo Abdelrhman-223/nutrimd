@@ -11,7 +11,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
 
-  sharedPreferences.setBool("logging", false);
+  // sharedPreferences.clear();
+
+  if (!sharedPreferences.containsKey("logging")) {
+    sharedPreferences.setBool("logging", false);
+    sharedPreferences.setBool("finishOnBoarding", false);
+    sharedPreferences.setBool("finishEnterMedicalData", false);
+  }
 
   runApp(const MyApp());
 }

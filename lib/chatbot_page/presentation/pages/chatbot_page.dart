@@ -31,11 +31,14 @@ class ChatBotPage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Stack(
               children: [
-                ListView.builder(
-                  itemCount: chatBotController.chatMessages.length,
-                  itemBuilder: (context, index) => MessageField(
-                      isItFromUser: (index % 2 == 0) ? false : true,
-                      fieldContent: chatBotController.chatMessages[index]),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.65,
+                  child: ListView.builder(
+                    itemCount: chatBotController.chatMessages.length,
+                    itemBuilder: (context, index) => MessageField(
+                        isItFromUser: (index % 2 == 0) ? false : true,
+                        fieldContent: chatBotController.chatMessages[index]),
+                  ),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -49,6 +52,7 @@ class ChatBotPage extends StatelessWidget {
                             height: messageFieldSize,
                             padding: EdgeInsets.only(right: 16, left: messageFieldSize + 16),
                             decoration: BoxDecoration(
+                              color: AppColors.fifthColor,
                               borderRadius: BorderRadius.circular(messageFieldSize),
                               border: GradientBoxBorder(
                                 width: 2,
@@ -79,8 +83,8 @@ class ChatBotPage extends StatelessWidget {
                                         chatBotController.chatMessages.length % 2 == 1) {
                                       chatBotController
                                           .addNewMessages(chatBotMessageController.text);
-                                      chatBotController.chatbotFunction(
-                                          {"":chatBotMessageController.text});
+                                      chatBotController
+                                          .chatbotFunction(chatBotMessageController.text);
                                       chatBotMessageController.clear();
                                     }
                                   },
@@ -112,7 +116,7 @@ class ChatBotPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           );

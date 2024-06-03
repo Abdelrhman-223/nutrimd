@@ -52,5 +52,6 @@ class AppIcons {
   static String mic = "assets/icons/mic.svg";
   static String arrowCircleLeft = "assets/icons/arrow_circle_left.svg";
   static String arrowCircleRight = "assets/icons/arrow_circle_right.svg";
+  static String medical = "assets/icons/medical.svg";
 //static String  = "assets/icons/.svg";
 }

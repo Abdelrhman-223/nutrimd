@@ -52,7 +52,7 @@ class ProfilePage extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "Abdelrhman",
+                  "${sharedPreferences.getString('firstName')!} ${sharedPreferences.getString('lastName')!}",
                   style: TextStyle(
                     color: AppColors.mainColor,
                     fontSize: 20,
@@ -89,14 +89,16 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     ProfileDataField(
                         fieldTitle: "Weight",
-                        fieldValue: sharedPreferences.getDouble('weightObesity')!.toString()),
+                        fieldValue: (sharedPreferences.getString('weightObesity')!).toString()),
                     ProfileDataField(
                         fieldTitle: "Height",
-                        fieldValue: sharedPreferences.getDouble('heightObesity')!.toString()),
+                        fieldValue: (sharedPreferences.getString('heightObesity')!).toString()),
                     ProfileDataField(
-                        fieldTitle: "Fats", fieldValue: sharedPreferences.getDouble('fatsObesity')!.toString()),
+                        fieldTitle: "Fats",
+                        fieldValue: (sharedPreferences.getString('fatsObesity')!).toString()),
                     ProfileDataField(
-                        fieldTitle: "Water", fieldValue: sharedPreferences.getDouble('waterObesity')!.toString()),
+                        fieldTitle: "Water",
+                        fieldValue: (sharedPreferences.getString('waterObesity')!).toString()),
                     spaceVertical8(),
                   ],
                 ),
@@ -107,30 +109,35 @@ class ProfilePage extends StatelessWidget {
                     const PageSeparator(separatorTitle: "Cholesterol Data"),
                     ProfileDataField(
                         fieldTitle: "Complete",
-                        fieldValue: sharedPreferences.getDouble('completeCholesterol')!.toString()),
+                        fieldValue:
+                            (sharedPreferences.getString('completeCholesterol')!).toString()),
                     ProfileDataField(
                         fieldTitle: "HDL",
-                        fieldValue: sharedPreferences.getDouble('hdlCholesterol')!.toString()),
+                        fieldValue: (sharedPreferences.getString('hdlCholesterol')!).toString()),
                     ProfileDataField(
-                        fieldTitle: "LDL", fieldValue: sharedPreferences.getDouble('ldlCholesterol')!.toString()),
+                        fieldTitle: "LDL",
+                        fieldValue: (sharedPreferences.getString('ldlCholesterol')!).toString()),
                     ProfileDataField(
                         fieldTitle: "Triglyceride",
-                        fieldValue: sharedPreferences.getDouble('triglycerideCholesterol')!.toString()),
-                    const PageSeparator(separatorTitle: "Pressure Data"),
-                    ProfileDataField(
-                        fieldTitle: "Diastolic",
-                        fieldValue: sharedPreferences.getDouble('diastolicPressure')!.toString()),
-                    ProfileDataField(
-                        fieldTitle: "Systolic", fieldValue: sharedPreferences.getDouble('systolicPressure')!.toString()),
+                        fieldValue:
+                            (sharedPreferences.getString('triglycerideCholesterol')!).toString()),
                     const PageSeparator(separatorTitle: "Diabetes Data"),
                     ProfileDataField(
+                        fieldTitle: "Diastolic",
+                        fieldValue: (sharedPreferences.getString('diastolicPressure')!).toString()),
+                    ProfileDataField(
+                        fieldTitle: "Systolic",
+                        fieldValue: (sharedPreferences.getString('systolicPressure')!).toString()),
+                    const PageSeparator(separatorTitle: "Pressure Data"),
+                    ProfileDataField(
                         fieldTitle: "Fasting test",
-                        fieldValue: sharedPreferences.getDouble('fastingTestSugar')!.toString()),
+                        fieldValue: (sharedPreferences.getString('fastingTestSugar')!).toString()),
                     ProfileDataField(
                         fieldTitle: "Oral test",
-                        fieldValue: sharedPreferences.getDouble('oralTestSugar')!.toString()),
+                        fieldValue: (sharedPreferences.getString('oralTestSugar')!).toString()),
                     ProfileDataField(
-                        fieldTitle: "A1C test", fieldValue: sharedPreferences.getDouble('a1CTestSugar')!.toString()),
+                        fieldTitle: "A1C test",
+                        fieldValue: (sharedPreferences.getString('a1CTestSugar')!).toString()),
                     spaceVertical8(),
                   ],
                 ),
