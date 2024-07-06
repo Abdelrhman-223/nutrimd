@@ -21,18 +21,20 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget afterOnBoardingScreen = const MyHomePage();
   @override
   void initState() {
-    if(sharedPreferences.getBool("finishOnBoarding")!) {
-      if (sharedPreferences.getBool("logging")!) {
-        if(sharedPreferences.getBool("finishEnterMedicalData")!){
-          afterOnBoardingScreen = const MyHomePage();
+    if(sharedPreferences.containsKey("finishOnBoarding")) {
+      if (sharedPreferences.getBool("finishOnBoarding")!) {
+        if (sharedPreferences.getBool("logging")!) {
+          if (sharedPreferences.getBool("finishEnterMedicalData")!) {
+            afterOnBoardingScreen = const MyHomePage();
+          } else {
+            afterOnBoardingScreen = const MedicalTestsPage();
+          }
         } else {
-          afterOnBoardingScreen = const MedicalTestsPage();
+          afterOnBoardingScreen = const AuthPage();
         }
       } else {
-        afterOnBoardingScreen = const AuthPage();
+        afterOnBoardingScreen = const OnBoarding();
       }
-    } else {
-      afterOnBoardingScreen = const OnBoarding();
     }
     super.initState();
   }

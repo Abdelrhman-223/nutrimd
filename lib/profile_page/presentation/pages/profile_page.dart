@@ -18,6 +18,7 @@ import 'package:nutrimd/profile_page/presentation/widgets/profile_data_field.dar
 import 'package:nutrimd/profile_page/presentation/widgets/profile_page_separator.dart';
 
 import '../../../main.dart';
+import '../../../medical_auth_pages/presentation/widgets/result_status.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -80,6 +81,10 @@ class ProfilePage extends StatelessWidget {
                         fieldValue: sharedPreferences.getString('phoneNum')!),
                     ProfileDataField(
                         fieldTitle: "Gender", fieldValue: sharedPreferences.getString('gender')!),
+                    ProfileDataField(
+                        fieldTitle: "Activity Level",
+                        fieldValue:
+                            '${sharedPreferences.getDouble('activityLevel')} "${sharedPreferences.getString('activityLevelTitle')!}"'),
                     spaceVertical8(),
                   ],
                 ),
@@ -89,16 +94,20 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     ProfileDataField(
                         fieldTitle: "Weight",
-                        fieldValue: (sharedPreferences.getString('weightObesity')!).toString()),
+                        fieldValue: "${sharedPreferences.getDouble('weightObesity')!} Kg"),
                     ProfileDataField(
                         fieldTitle: "Height",
-                        fieldValue: (sharedPreferences.getString('heightObesity')!).toString()),
+                        fieldValue: "${sharedPreferences.getDouble('heightObesity')!} m"),
+                    ProfileDataField(
+                        fieldTitle: "BMI",
+                        fieldValue:
+                            "${sharedPreferences.getDouble('bmi').toString().substring(0, 6)}  (${sharedPreferences.getString('obesity')!})"),
                     ProfileDataField(
                         fieldTitle: "Fats",
-                        fieldValue: (sharedPreferences.getString('fatsObesity')!).toString()),
+                        fieldValue: "${sharedPreferences.getDouble('fatsObesity')!} %"),
                     ProfileDataField(
                         fieldTitle: "Water",
-                        fieldValue: (sharedPreferences.getString('waterObesity')!).toString()),
+                        fieldValue: "${sharedPreferences.getDouble('waterObesity')!} %"),
                     spaceVertical8(),
                   ],
                 ),
@@ -110,35 +119,64 @@ class ProfilePage extends StatelessWidget {
                     ProfileDataField(
                         fieldTitle: "Complete",
                         fieldValue:
-                            (sharedPreferences.getString('completeCholesterol')!).toString()),
+                            "${sharedPreferences.getDouble('completeCholesterol')!} mg/dL  (${sharedPreferences.getString('complete_cholesterol')!})"),
                     ProfileDataField(
                         fieldTitle: "HDL",
-                        fieldValue: (sharedPreferences.getString('hdlCholesterol')!).toString()),
+                        fieldValue:
+                            "${sharedPreferences.getDouble('hdlCholesterol')!} mg/dL  (${sharedPreferences.getString('hdl_cholesterol')!})"),
                     ProfileDataField(
                         fieldTitle: "LDL",
-                        fieldValue: (sharedPreferences.getString('ldlCholesterol')!).toString()),
+                        fieldValue:
+                            "${sharedPreferences.getDouble('ldlCholesterol')!} mg/dL  (${sharedPreferences.getString('ldl_cholesterol')!})"),
                     ProfileDataField(
                         fieldTitle: "Triglyceride",
                         fieldValue:
-                            (sharedPreferences.getString('triglycerideCholesterol')!).toString()),
+                            "${sharedPreferences.getDouble('triglycerideCholesterol')!} mg/dL  (${sharedPreferences.getString('triglyceride_cholesterol')!})"),
                     const PageSeparator(separatorTitle: "Diabetes Data"),
                     ProfileDataField(
                         fieldTitle: "Diastolic",
-                        fieldValue: (sharedPreferences.getString('diastolicPressure')!).toString()),
+                        fieldValue:
+                            "${sharedPreferences.getDouble('diastolicPressure')!} mm Hg  (${sharedPreferences.getString('pressure')!})"),
                     ProfileDataField(
                         fieldTitle: "Systolic",
-                        fieldValue: (sharedPreferences.getString('systolicPressure')!).toString()),
+                        fieldValue:
+                            "${sharedPreferences.getDouble('systolicPressure')!} mm Hg  (${sharedPreferences.getString('pressure')!})"),
                     const PageSeparator(separatorTitle: "Pressure Data"),
                     ProfileDataField(
                         fieldTitle: "Fasting test",
-                        fieldValue: (sharedPreferences.getString('fastingTestSugar')!).toString()),
+                        fieldValue:
+                            "${sharedPreferences.getDouble('fastingTestSugar')!} mg/dL  (${sharedPreferences.getString('fasting_test_diabetes')!})"),
                     ProfileDataField(
                         fieldTitle: "Oral test",
-                        fieldValue: (sharedPreferences.getString('oralTestSugar')!).toString()),
+                        fieldValue:
+                            "${sharedPreferences.getDouble('oralTestSugar')!} mg/dL  (${sharedPreferences.getString('oral_test_diabetes')!})"),
                     ProfileDataField(
                         fieldTitle: "A1C test",
-                        fieldValue: (sharedPreferences.getString('a1CTestSugar')!).toString()),
+                        fieldValue:
+                            "${sharedPreferences.getDouble('a1CTestSugar')!} %  (${sharedPreferences.getString('a1c_test_diabetes')!})"),
                     spaceVertical8(),
+                  ],
+                ),
+              ProfilePageSeparator(fieldTitle: "Analysis Results"),
+              if (profileController.activatedField["Analysis Results"]!)
+                Column(
+                  children: [
+                    ResultStatus(
+                      disease: "Diabetes",
+                      status: sharedPreferences.getBool("userHasDiabetes")!,
+                    ),
+                    ResultStatus(
+                      disease: "Pressure",
+                      status: sharedPreferences.getBool("userHasPressure")!,
+                    ),
+                    ResultStatus(
+                      disease: "Cholesterol",
+                      status: sharedPreferences.getBool("userHasCholesterol")!,
+                    ),
+                    ResultStatus(
+                      disease: "Obesity",
+                      status: sharedPreferences.getBool("userHasObesity")!,
+                    ),
                   ],
                 ),
             ],

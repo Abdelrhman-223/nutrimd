@@ -11,11 +11,18 @@ import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:nutrimd/core/utils/app_colors.dart';
 
 class AppTextField extends StatelessWidget {
-  const AppTextField({super.key, required this.textFieldTitle, required this.fieldController, required this.fieldKeyboardType});
+  const AppTextField({
+    super.key,
+    required this.textFieldTitle,
+    required this.fieldController,
+    required this.fieldKeyboardType,
+    this.fieldBackgroundColor = Colors.transparent,
+  });
 
   final String textFieldTitle;
   final TextEditingController fieldController;
   final TextInputType fieldKeyboardType;
+  final Color fieldBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +30,7 @@ class AppTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
+        color: fieldBackgroundColor,
         border: GradientBoxBorder(gradient: AppColors.vUtDLinearDarkGrid, width: 3),
         borderRadius: BorderRadius.circular(15),
       ),

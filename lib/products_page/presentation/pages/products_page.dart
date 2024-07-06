@@ -11,72 +11,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutrimd/core/widgets/page_separator.dart';
 import 'package:nutrimd/core/components/product_field.dart';
+import 'package:nutrimd/main.dart';
+import 'package:nutrimd/products_page/data/data_sources/product_api_manager.dart';
 
 import '../../../core/styles/dividers.dart';
+import '../../../products_data.dart';
 
-class ProductsPage extends StatelessWidget {
+class ProductsPage extends StatefulWidget {
   ProductsPage({super.key});
 
-  final List recommendedProducts = [
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-  ];
-  final List purchased = [
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-  ];
+  @override
+  State<ProductsPage> createState() => _ProductsPageState();
+}
 
+class _ProductsPageState extends State<ProductsPage> {
+  ProductApiManager productApiManager = ProductApiManager();
+  @override
+  void initState() {
+    productApiManager.buyedProduct({"user_id":sharedPreferences.getString("userId")});
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
       padding: const EdgeInsets.all(16),
       children: [
-        const PageSeparator(separatorTitle: "Recommended Products"),
+        /*const PageSeparator(separatorTitle: "Recommended Products"),
         spaceVertical8(),
         SizedBox(
           height: 182,
@@ -99,20 +60,20 @@ class ProductsPage extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        ),*/
         const PageSeparator(separatorTitle: "Purchase"),
         spaceVertical16(),
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: recommendedProducts.length,
+          itemCount: purchased.length,
           itemBuilder: (context, index) => ProductField(
-            productName: recommendedProducts[index]["productName"],
-            productIngredient: recommendedProducts[index]["productIngredient"],
-            calsValue: recommendedProducts[index]["calsValue"],
-            carpValue: recommendedProducts[index]["carpValue"],
-            proteinValue: recommendedProducts[index]["proteinValue"],
-            fatsValue: recommendedProducts[index]["fatsValue"],
+            productName: purchased[index]["productName"],
+            productIngredient: purchased[index]["productIngredient"],
+            calsValue: purchased[index]["calsValue"].toString(),
+            carpValue: purchased[index]["carpValue"].toString(),
+            proteinValue: purchased[index]["proteinValue"].toString(),
+            fatsValue: purchased[index]["fatsValue"].toString(),
             activeFieldButton: true,
             fieldButtonTitle: "Use",
           ),

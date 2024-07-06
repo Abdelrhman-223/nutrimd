@@ -8,7 +8,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:nutrimd/chatbot_page/presentation/pages/chatbot_page.dart';
 import 'package:nutrimd/core/components/bottom_nav_bar_button.dart';
@@ -21,10 +23,10 @@ import 'package:nutrimd/history_page/presentation/pages/history_page.dart';
 import 'package:nutrimd/home_page/presentation/widgets/drawer_button.dart';
 import 'package:nutrimd/home_page/presentation/widgets/logout_button.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_tests_page.dart';
-import 'package:nutrimd/on_boarding/presentation/pages/splash_screen.dart';
 import 'package:nutrimd/products_page/presentation/pages/products_page.dart';
 import 'package:nutrimd/profile_page/presentation/pages/profile_page.dart';
 
+import '../../../api_connection.dart';
 import '../../../main.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -46,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> bottomNavBarPages = [
     const ProfilePage(),
     HistoryPage(),
-    DietProtocolPage(),
+    const DietProtocolPage(),
     ProductsPage(),
     ChatBotPage(),
   ];
@@ -108,8 +110,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     spaceVertical16(),
                     MyDrawerButton(
-                      buttonFunction: () {},
-                      buttonTitle: "Settings",
+                      buttonFunction: () async {
+                        //sensor data
+                        /*var url = Uri.http(ApiConnections.maxSensorBase,"/");
+                        print(url);
+                        var response = await http.get(url);
+                        print(response.body);*/
+                        //qr scan
+                        late dynamic responseData;
+                        var url = Uri.http(ApiConnections.qrSensorBase,ApiConnections().urlDomains["qrSensor"]!);
+                        print(url);
+                        var response = await http.get(url);
+                        print(response.body);
+                        responseData = jsonDecode(response.body);
+                        print("************${responseData["qrcode"]}");
+                      },
+                      buttonTitle: "Qr-Code",
+                      buttonIcon: AppIcons.settings,
+                    ),
+                    MyDrawerButton(
+                      buttonFunction: () async {
+                        //sensor data
+                        var url = Uri.http(ApiConnections.maxSensorBase,"/off");
+                        print(url);
+                        var response = await http.get(url);
+                        print(response.body);
+                        //qr scan
+                        /*late dynamic responseData;
+                        var url = Uri.http(ApiConnections.qrSensorBase,ApiConnections().urlDomains["qrSensor"]!);
+                        print(url);
+                        var response = await http.get(url);
+                        print(response.body);
+                        responseData = jsonDecode(response.body);
+                        print("************${responseData["qrcode"]}");*/
+                      },
+                      buttonTitle: "Sensors",
                       buttonIcon: AppIcons.settings,
                     ),
                     MyDrawerButton(
@@ -139,7 +174,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-
                     border: GradientBoxBorder(gradient: AppColors.hLtRLinearDarkGrid, width: 1),
                   ),
                 ),

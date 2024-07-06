@@ -14,27 +14,37 @@ import '../../../main.dart';
 import '../../presentation/pages/medical_results_page.dart';
 
 class MedicalApiManager extends GetxController {
-  late var responseData;
+  late dynamic responseData;
 
   medicalAuthFunction(Map<String, String> urlRequest) async {
-    var url = Uri.http(ApiConnections.urlBase, ApiConnections().urlDomains["medicalResults"]!, urlRequest);
-    print(url);
+    var url = Uri.http(ApiConnections.backendUrlBase, ApiConnections().urlDomains["medicalResults"]!, urlRequest);
     var response = await http.get(url);
     responseData = jsonDecode(response.body);
-    print("Status is ${responseData["status"]}");
     update();
   }
 
   physicalAuthFunction(Map<String, String> urlRequest) async {
-    var url = Uri.http(ApiConnections.urlBase, ApiConnections().urlDomains["physicalResults"]!, urlRequest);
-    print(url);
+    var url = Uri.http(ApiConnections.backendUrlBase, ApiConnections().urlDomains["physicalResults"]!, urlRequest);
     var response = await http.get(url);
     responseData = jsonDecode(response.body);
-    print("Status is ${responseData["status"]}");
     if (responseData["status"] == "success") {
       sharedPreferences.setBool("finishEnterMedicalData", true);
-      Get.to(const MedicalResults());
+      Get.to(MedicalResults());
     }
+    update();
+  }
+
+  addUserDiseases(Map<String, String> urlRequest) async {
+    var url = Uri.http(ApiConnections.backendUrlBase, ApiConnections().urlDomains["userDiseases"]!, urlRequest);
+    var response = await http.get(url);
+    responseData = jsonDecode(response.body);
+    update();
+  }
+
+  addUserDiet(Map<String, String> urlRequest) async {
+    var url = Uri.http(ApiConnections.backendUrlBase, ApiConnections().urlDomains["userDiet"]!, urlRequest);
+    var response = await http.get(url);
+    responseData = jsonDecode(response.body);
     update();
   }
 }

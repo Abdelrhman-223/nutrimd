@@ -28,7 +28,7 @@ class ProfileDataField extends StatelessWidget {
               height: fieldHeight,
               alignment: Alignment.centerLeft,
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 2.5 + 16, 0, 16, 0),
+              padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 3 + 16, 0, 16, 0),
               decoration: BoxDecoration(
                 color: AppColors.fifthColor,
                 borderRadius: BorderRadius.circular(fieldHeight / 2),
@@ -39,6 +39,7 @@ class ProfileDataField extends StatelessWidget {
               ),
               child: Text(
                 fieldValue,
+                softWrap: true,
                 style: TextStyle(
                   fontSize: 14,
                   color: AppColors.secondColor,
@@ -48,10 +49,13 @@ class ProfileDataField extends StatelessWidget {
           ),
           Container(
             height: fieldHeight,
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width / 2.5,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            width: MediaQuery.of(context).size.width / 3,
             decoration: BoxDecoration(
-                color: AppColors.mainColor, borderRadius: BorderRadius.circular(fieldHeight / 2)),
+              color: AppColors.mainColor,
+              borderRadius: BorderRadius.circular(fieldHeight / 2),
+            ),
             child: Text(
               "$fieldTitle:",
               style: TextStyle(

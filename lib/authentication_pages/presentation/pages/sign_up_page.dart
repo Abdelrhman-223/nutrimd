@@ -7,10 +7,14 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:interactive_slider/interactive_slider.dart';
 import 'package:nutrimd/authentication_pages/presentation/widgets/auth_radio_buttons.dart';
 import 'package:nutrimd/authentication_pages/data/data_sources/auth_api.dart';
+import 'package:nutrimd/core/styles/dividers.dart';
 import 'package:nutrimd/core/utils/app_colors.dart';
+import 'package:nutrimd/core/utils/app_icons.dart';
 import 'package:nutrimd/core/widgets/small_text_field_row.dart';
 import 'package:nutrimd/main.dart';
 import '../../../core/components/app_button.dart';
@@ -37,6 +41,10 @@ class SignUpPage extends StatelessWidget {
   String alertMessage = "", confirmAlertMessage = "", phoneAlertMessage = "";
 
   bool dataValid = false;
+
+  double sliderValue = 0.05;
+  double activityLevel = 1.2;
+  String activityLevelTitle = "Sedentary";
 
   @override
   Widget build(BuildContext context) {
@@ -89,28 +97,6 @@ class SignUpPage extends StatelessWidget {
               secondFieldController: secondNameController,
               fieldKeyboardType: TextInputType.name,
             ),
-            /*Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                /// The equation to determine the width of the field, and that by taking the width of the screen and subtract the value of the padding (16 R,16 L) from it and the value of the gap needed between the tow fields (16) and divide it on 2.
-                SizedBox(
-                  width: (MediaQuery.of(context).size.width - 48) / 2,
-                  child: AppTextField(
-                    textFieldTitle: "First Name",
-                    fieldController: firstNameController,
-                    fieldKeyboardType: TextInputType.name,
-                  ),
-                ),
-                SizedBox(
-                  width: (MediaQuery.of(context).size.width - 48) / 2,
-                  child: AppTextField(
-                    textFieldTitle: "Second Name",
-                    fieldController: secondNameController,
-                    fieldKeyboardType: TextInputType.name,
-                  ),
-                ),
-              ],
-            ),*/
             AppTextField(
               textFieldTitle: "Phone Number",
               fieldController: phoneNumberController,
@@ -215,46 +201,153 @@ class SignUpPage extends StatelessWidget {
                   color: AppColors.redColor,
                 ),
               ),
+
+            spaceVertical32(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Activity Level",
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: AppColors.mainColor,
+                  ),
+                ),
+                spaceVertical8(),
+                Text(
+                  activityLevelTitle,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: AppColors.secondColor,
+                  ),
+                ),
+                spaceVertical8(),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  child: InteractiveSlider(
+                    min: 0,
+                    max: 1,
+                    initialProgress: sliderValue,
+                    unfocusedMargin: EdgeInsets.zero,
+                    foregroundColor: AppColors.mainColor,
+                    padding: EdgeInsets.zero,
+                    backgroundColor: AppColors.thirdColor,
+                    transitionCurvePeriod: 0.25,
+                    onChanged: (value) {
+                      setState(() {
+                        if (value >= 0 && value <= 0.125) {
+                          sliderValue = 0.05;
+                          activityLevel = 1.2;
+                          activityLevelTitle = "Sedentary";
+                        } else if (value >= 0.125 && value <= 0.375) {
+                          sliderValue = 0.25;
+                          activityLevel = 1.375;
+                          activityLevelTitle = "Lightly active";
+                        } else if (value >= 0.375 && value <= 0.625) {
+                          sliderValue = 0.5;
+                          activityLevel = 1.55;
+                          activityLevelTitle = "Moderately active";
+                        } else if (value >= 0.625 && value <= 0.875) {
+                          sliderValue = 0.75;
+                          activityLevel = 1.725;
+                          activityLevelTitle = "Active";
+                        } else if (value >= 0.875 && value <= 1) {
+                          sliderValue = 1;
+                          activityLevel = 1.9;
+                          activityLevelTitle = "Very active";
+                        }
+                      });
+                    },
+                  ),
+                ),
+                spaceVertical8(),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Opacity(
+                        opacity: (sliderValue == 0.05) ? 1 : 0.25,
+                        child: SvgPicture.asset(
+                          AppIcons.sleepingEmoji,
+                        ),
+                      ),
+                      Opacity(
+                        opacity: (sliderValue == 0.25) ? 1 : 0.25,
+                        child: SvgPicture.asset(
+                          AppIcons.yawnEmoji,
+                        ),
+                      ),
+                      Opacity(
+                        opacity: (sliderValue == 0.5) ? 1 : 0.25,
+                        child: SvgPicture.asset(
+                          AppIcons.smilingEmoji,
+                        ),
+                      ),
+                      Opacity(
+                        opacity: (sliderValue == 0.75) ? 1 : 0.25,
+                        child: SvgPicture.asset(
+                          AppIcons.sadEmoji,
+                        ),
+                      ),
+                      Opacity(
+                        opacity: (sliderValue == 1) ? 1 : 0.25,
+                        child: SvgPicture.asset(
+                          AppIcons.steamingEmoji,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            spaceVertical32(),
+
             // Put the button into Align widget to make it take its right width because the listview giving it the screen width.
             GetBuilder<AuthApiManager>(
               init: AuthApiManager(),
               builder: (apiController) {
                 return GetBuilder<AuthDataController>(
-                    init: AuthDataController(),
-                    builder: (authDataController) {
-                      return Align(
-                        alignment: Alignment.center,
-                        child: AppButton(
-                          buttonFunction: () {
-                            fieldsValidation();
-                            if (dataValid) {
-                              apiController.signUpFunction({
-                                'first_name': firstNameController.text,
-                                'last_name': secondNameController.text,
-                                'phone_num': phoneNumberController.text,
-                                'date_of_birth': authDataController.birthDate,
-                                'email': emailController.text,
-                                'password': passwordController.text,
-                                'gender': (authDataController.radioButtonValues["gender"] == "Male")
-                                    ? "0"
-                                    : "1",
-                              });
-                              sharedPreferences.setBool("logging", true);
-                              sharedPreferences.setString('firstName', firstNameController.text);
-                              sharedPreferences.setString('lastName', secondNameController.text);
-                              sharedPreferences.setString('phoneNum', phoneNumberController.text);
-                              sharedPreferences.setString(
-                                  'birthDate', authDataController.birthDate);
-                              sharedPreferences.setString('email', emailController.text);
-                              sharedPreferences.setString('password', passwordController.text);
-                              sharedPreferences.setString(
-                                  'gender', authDataController.radioButtonValues["gender"]!);
-                            }
-                          },
-                          buttonTitle: "Sign-Up",
-                        ),
-                      );
-                    });
+                  init: AuthDataController(),
+                  builder: (authDataController) {
+                    return Align(
+                      alignment: Alignment.center,
+                      child: AppButton(
+                        buttonFunction: () {
+                          fieldsValidation();
+                          if (dataValid) {
+                            apiController.signUpFunction(context, {
+                              'first_name': firstNameController.text,
+                              'last_name': secondNameController.text,
+                              'phone_num': phoneNumberController.text,
+                              'date_of_birth': authDataController.birthDate,
+                              'email': emailController.text,
+                              'password': passwordController.text,
+                              'activity_level': activityLevel.toString(),
+                              'gender': (authDataController.radioButtonValues["gender"] == "Male")
+                                  ? "0"
+                                  : "1",
+                            });
+                            sharedPreferences.setBool("logging", true);
+                            sharedPreferences.setString('firstName', firstNameController.text);
+                            sharedPreferences.setString('lastName', secondNameController.text);
+                            sharedPreferences.setString('phoneNum', phoneNumberController.text);
+                            sharedPreferences.setString('birthDate', authDataController.birthDate);
+                            sharedPreferences.setString('email', emailController.text);
+                            sharedPreferences.setString('password', passwordController.text);
+                            sharedPreferences.setString(
+                                'gender', authDataController.radioButtonValues["gender"]!);
+
+                            sharedPreferences.setDouble("activityLevel", activityLevel);
+                            sharedPreferences.setString("activityLevelTitle", activityLevelTitle);
+                          }
+                        },
+                        buttonTitle: "Sign-Up",
+                      ),
+                    );
+                  },
+                );
               },
             ),
           ],

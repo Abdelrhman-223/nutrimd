@@ -60,7 +60,7 @@ class CaloriesBar extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    currentValue,
+                    totalValue.length < 6 ? totalValue : totalValue.substring(0,6),
                     style: TextStyle(
                       color: AppColors.mainColor,
                       fontSize: 18,
@@ -82,7 +82,7 @@ class CaloriesBar extends StatelessWidget {
                 border: GradientBoxBorder(gradient: AppColors.hRtLLinearDarkGrid, width: 10),
               ),
               child: Text(
-                totalValue,
+                currentValue.length < 6 ? currentValue : currentValue.substring(0,6),
                 style: TextStyle(
                   color: AppColors.mainColor,
                   fontSize: 20,

@@ -53,5 +53,14 @@ class AppIcons {
   static String arrowCircleLeft = "assets/icons/arrow_circle_left.svg";
   static String arrowCircleRight = "assets/icons/arrow_circle_right.svg";
   static String medical = "assets/icons/medical.svg";
+  static String backButton = "assets/icons/backButton.svg";
+
+  // Emojis
+  static String sadEmoji = "assets/icons/emojis/sad.svg";
+  static String sleepingEmoji = "assets/icons/emojis/sleeping.svg";
+  static String smilingEmoji = "assets/icons/emojis/smilling_eye_opene.svg";
+  static String steamingEmoji = "assets/icons/emojis/steaming.svg";
+  static String yawnEmoji = "assets/icons/emojis/yawn.svg";
+
 //static String  = "assets/icons/.svg";
 }

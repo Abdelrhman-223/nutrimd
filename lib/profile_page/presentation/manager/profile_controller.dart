@@ -13,12 +13,14 @@ class ProfileController extends GetxController {
     "Personal Data": true,
     "Physical Data": false,
     "Medical Data": false,
+    "Analysis Results": false,
   };
 
   activePage(String page) {
     activatedField.update("Personal Data", (value) => false);
     activatedField.update("Physical Data", (value) => false);
     activatedField.update("Medical Data", (value) => false);
+    activatedField.update("Analysis Results", (value) => false);
     activatedField[page] = true;
 
     update();

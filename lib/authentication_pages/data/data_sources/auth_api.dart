@@ -7,31 +7,34 @@
 */
 
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:nutrimd/api_connection.dart';
 import 'package:nutrimd/home_page/presentation/pages/home_page.dart';
 import 'package:nutrimd/medical_auth_pages/presentation/pages/medical_tests_page.dart';
 
+import '../../../core/utils/app_colors.dart';
 import '../../../main.dart';
 
 class AuthApiManager extends GetxController {
-  late var responseData;
+  late dynamic responseData;
 
   signInFunction(Map<String, dynamic> urlRequest) async {
-    var url = Uri.http(ApiConnections.urlBase, ApiConnections().urlDomains["signIn"]!, urlRequest);
+    var url =
+        Uri.http(ApiConnections.backendUrlBase, ApiConnections().urlDomains["signIn"]!, urlRequest);
     var response = await http.get(url);
     responseData = jsonDecode(response.body);
 
     if (responseData["status"] == "success") {
       sharedPreferences.setBool("logging", true);
       sharedPreferences.setString('userId', responseData["personal_data"]["id"].toString());
-      sharedPreferences.setString('firstName', responseData["personal_data"]["first_name"]);
-      sharedPreferences.setString('lastName', responseData["personal_data"]["last_name"]);
-      sharedPreferences.setString('phoneNum', responseData["personal_data"]["phone_num"]);
-      sharedPreferences.setString('birthDate', responseData["personal_data"]["date_of_birth"]);
-      sharedPreferences.setString('email', responseData["personal_data"]["email"]);
-      sharedPreferences.setString('password', responseData["personal_data"]["password"]);
+      sharedPreferences.setString('firstName', responseData["personal_data"]["first_name"].toString());
+      sharedPreferences.setString('lastName', responseData["personal_data"]["last_name"].toString());
+      sharedPreferences.setString('phoneNum', responseData["personal_data"]["phone_num"].toString());
+      sharedPreferences.setString('birthDate', responseData["personal_data"]["date_of_birth"].toString());
+      sharedPreferences.setString('email', responseData["personal_data"]["email"].toString());
+      sharedPreferences.setString('password', responseData["personal_data"]["password"].toString());
       if (responseData["personal_data"]["gender"] == 0) {
         sharedPreferences.setString("gender", "Male");
       } else {
@@ -89,14 +92,31 @@ class AuthApiManager extends GetxController {
     update();
   }
 
-  signUpFunction(Map<String, dynamic> urlRequest) async {
-    var url = Uri.http(ApiConnections.urlBase, ApiConnections().urlDomains["signUp"]!, urlRequest);
+  signUpFunction(context, Map<String, dynamic> urlRequest) async {
+    var url =
+        Uri.http(ApiConnections.backendUrlBase, ApiConnections().urlDomains["signUp"]!, urlRequest);
     var response = await http.get(url);
     responseData = jsonDecode(response.body);
-
+print("***************statues: ${responseData["status"]}");
     if (responseData["status"] == "success") {
       sharedPreferences.setString('userId', responseData["user_id"].toString());
       Get.off(const MedicalTestsPage());
+    } else if(responseData["status"] == "error"){
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: AppColors.redColor,
+          alignment: Alignment.center,
+          content: Text(
+            responseData["message"],
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.fifthColor,
+              fontSize: 18,
+            ),
+          ),
+        ),
+      );
     }
     update();
   }

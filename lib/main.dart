@@ -11,14 +11,25 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
 
-  // sharedPreferences.clear();
+  //sharedPreferences.clear();
 
   if (!sharedPreferences.containsKey("logging")) {
     sharedPreferences.setBool("logging", false);
     sharedPreferences.setBool("finishOnBoarding", false);
     sharedPreferences.setBool("finishEnterMedicalData", false);
   }
-
+  if (!sharedPreferences.containsKey("appDate")) {
+    sharedPreferences.setString("appDate", DateTime.now().toString().substring(0,10));
+  } else {
+    if (DateTime.now().toString().substring(0,10) != sharedPreferences.getString("appDate").toString().substring(0,10)) {
+      sharedPreferences.remove("usedProductsToday");
+      sharedPreferences.setDouble("calsCurrentValue", 0);
+      sharedPreferences.setDouble("carpCurrentValue", 0);
+      sharedPreferences.setDouble("proteinCurrentValue", 0);
+      sharedPreferences.setDouble("fatsCurrentValue", 0);
+      sharedPreferences.setString("appDate", DateTime.now().toString().substring(0,10));
+    }
+  }
   runApp(const MyApp());
 }
 

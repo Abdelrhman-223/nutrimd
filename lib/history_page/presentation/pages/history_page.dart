@@ -13,62 +13,10 @@ import 'package:nutrimd/history_page/presentation/widgets/history_tab_bar.dart';
 import '../../../core/components/product_field.dart';
 import '../../../core/styles/dividers.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../products_data.dart';
 
 class HistoryPage extends StatelessWidget {
   HistoryPage({super.key});
-
-  final List usedProducts = [
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-  ];
-  final List purchasedProducts = [
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-    {
-      "productName": "Orange Juice",
-      "productIngredient": "ingredients,  ingredients,  ingredients  ingredients...",
-      "calsValue": "700",
-      "carpValue": "10",
-      "proteinValue": "12",
-      "fatsValue": "1",
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -104,10 +52,10 @@ class HistoryPage extends StatelessWidget {
                             itemBuilder: (context, index) => ProductField(
                               productName: usedProducts[index]["productName"],
                               productIngredient: usedProducts[index]["productIngredient"],
-                              calsValue: usedProducts[index]["calsValue"],
-                              carpValue: usedProducts[index]["carpValue"],
-                              proteinValue: usedProducts[index]["proteinValue"],
-                              fatsValue: usedProducts[index]["fatsValue"],
+                              calsValue: usedProducts[index]["calsValue"].toString(),
+                              carpValue: usedProducts[index]["carpValue"].toString(),
+                              proteinValue: usedProducts[index]["proteinValue"].toString(),
+                              fatsValue: usedProducts[index]["fatsValue"].toString(),
                               activeUsedField: true,
                               usedCals: "640",
                               usedQuantity: "80",
@@ -121,10 +69,10 @@ class HistoryPage extends StatelessWidget {
                             itemBuilder: (context, index) => ProductField(
                               productName: purchasedProducts[index]["productName"],
                               productIngredient: purchasedProducts[index]["productIngredient"],
-                              calsValue: purchasedProducts[index]["calsValue"],
-                              carpValue: purchasedProducts[index]["carpValue"],
-                              proteinValue: purchasedProducts[index]["proteinValue"],
-                              fatsValue: purchasedProducts[index]["fatsValue"],
+                              calsValue: purchasedProducts[index]["calsValue"].toString(),
+                              carpValue: purchasedProducts[index]["carpValue"].toString(),
+                              proteinValue: purchasedProducts[index]["proteinValue"].toString(),
+                              fatsValue: purchasedProducts[index]["fatsValue"].toString(),
                               activeFieldButton: true,
                               fieldButtonTitle: "Re-Buy",
                               showDate: true,

@@ -7,15 +7,16 @@
 */
 
 import 'package:get/get.dart';
-import 'package:nutrimd/authentication_pages/presentation/manager/auth_data_controller.dart';
+import 'package:nutrimd/main.dart';
 
 class DiseaseIdentification extends GetxController {
   Map<String, dynamic> medicalTestsResults = {}, physicalTestsResults = {};
   String gender = "";
+
   bool userHasCholesterol = false,
       userHasPressure = false,
-      userHasSugar = false,
-      userHasOpicity = false;
+      userHasDiabetes = false,
+      userHasObesity = false;
 
   Map<String, String> testsResultsStatus = {
     "complete_cholesterol": "",
@@ -34,10 +35,29 @@ class DiseaseIdentification extends GetxController {
     medicalTestsResults = medicalResults;
     physicalTestsResults = physicalResults;
     gender = userGender;
+
     identifyCholesterol();
     identifyPressure();
-    identifySugar();
-    identifyOpicity();
+    identifyDiabetes();
+    identifyObesity();
+
+    sharedPreferences.setBool("userHasCholesterol", userHasCholesterol);
+    sharedPreferences.setBool("userHasPressure", userHasPressure);
+    sharedPreferences.setBool("userHasDiabetes", userHasDiabetes);
+    sharedPreferences.setBool("userHasObesity", userHasObesity);
+
+    sharedPreferences.setString(
+        "complete_cholesterol", testsResultsStatus["complete_cholesterol"]!);
+    sharedPreferences.setString("hdl_cholesterol", testsResultsStatus["hdl_cholesterol"]!);
+    sharedPreferences.setString("ldl_cholesterol", testsResultsStatus["ldl_cholesterol"]!);
+    sharedPreferences.setString(
+        "triglyceride_cholesterol", testsResultsStatus["triglyceride_cholesterol"]!);
+    sharedPreferences.setString("pressure", testsResultsStatus["pressure"]!);
+    sharedPreferences.setString(
+        "fasting_test_diabetes", testsResultsStatus["fasting_test_diabetes"]!);
+    sharedPreferences.setString("oral_test_diabetes", testsResultsStatus["oral_test_diabetes"]!);
+    sharedPreferences.setString("a1c_test_diabetes", testsResultsStatus["a1c_test_diabetes"]!);
+    sharedPreferences.setString("obesity", testsResultsStatus["obesity"]!);
 
     update();
   }
@@ -105,9 +125,9 @@ class DiseaseIdentification extends GetxController {
     double pressureHigh = double.parse(medicalTestsResults["diastolic_pressure"]!),
         pressureLow = double.parse(medicalTestsResults["systolic_pressure"]!);
     //
-    if (pressureHigh < 120 && pressureLow < 80) {
+    if (pressureHigh <= 120 && pressureLow <= 80) {
       testsResultsStatus["pressure"] = "normal";
-    } else if ((pressureHigh >= 120 && pressureHigh >= 80) &&
+    } else if ((pressureHigh > 120 && pressureHigh > 80) &&
         (pressureHigh <= 129 && pressureLow <= 84)) {
       testsResultsStatus["pressure"] = "high";
       userHasPressure = true;
@@ -127,7 +147,7 @@ class DiseaseIdentification extends GetxController {
     update();
   }
 
-  identifySugar() {
+  identifyDiabetes() {
     double fastingTestDiabetes = double.parse(medicalTestsResults["fasting_test_diabetes"]!);
     double oralTestDiabetes = double.parse(medicalTestsResults["oral_test_diabetes"]!);
     double a1cTestDiabetes = double.parse(medicalTestsResults["a1c_test_diabetes"]!);
@@ -136,48 +156,48 @@ class DiseaseIdentification extends GetxController {
       testsResultsStatus["fasting_test_diabetes"] = "normal";
     } else if (fastingTestDiabetes >= 100 && fastingTestDiabetes <= 125) {
       testsResultsStatus["fasting_test_diabetes"] = "pre-diabetic";
-      userHasSugar = true;
+      userHasDiabetes = true;
     } else if (fastingTestDiabetes >= 126) {
       testsResultsStatus["fasting_test_diabetes"] = "diabetic";
-      userHasSugar = true;
+      userHasDiabetes = true;
     }
     //
     if (oralTestDiabetes < 140) {
       testsResultsStatus["oral_test_diabetes"] = "normal";
     } else if (oralTestDiabetes >= 140 && oralTestDiabetes <= 199) {
       testsResultsStatus["oral_test_diabetes"] = "pre-diabetic";
-      userHasSugar = true;
+      userHasDiabetes = true;
     } else if (oralTestDiabetes >= 200) {
       testsResultsStatus["oral_test_diabetes"] = "diabetic";
-      userHasSugar = true;
+      userHasDiabetes = true;
     }
     //
     if (a1cTestDiabetes < 5.7) {
       testsResultsStatus["a1c_test_diabetes"] = "normal";
     } else if (a1cTestDiabetes >= 5.7 && a1cTestDiabetes <= 6.4) {
       testsResultsStatus["a1c_test_diabetes"] = "high";
-      userHasSugar = true;
+      userHasDiabetes = true;
     } else if (a1cTestDiabetes >= 6.5) {
       testsResultsStatus["a1c_test_diabetes"] = "diabetic";
-      userHasSugar = true;
+      userHasDiabetes = true;
     }
 
     update();
   }
 
-  identifyOpicity() {
-    double weight = double.parse(physicalTestsResults["weight"]!),
-        height = double.parse(physicalTestsResults["height"]!);
-    double bmi = weight / (height * height);
+  identifyObesity() {
+    double bmi = sharedPreferences.getDouble("bmi")!;
     //
-    if (bmi < 18.5 && bmi <= 24.9) {
+    if (bmi <= 20) {
+      testsResultsStatus["obesity"] = "low";
+    } else if (bmi > 20 && bmi <= 24.9) {
       testsResultsStatus["obesity"] = "normal";
     } else if (bmi >= 25 && bmi <= 29.9) {
       testsResultsStatus["obesity"] = "over";
-      userHasOpicity = true;
+      userHasObesity = true;
     } else if (bmi >= 30) {
       testsResultsStatus["obesity"] = "obesity";
-      userHasOpicity = true;
+      userHasObesity = true;
     }
     update();
   }

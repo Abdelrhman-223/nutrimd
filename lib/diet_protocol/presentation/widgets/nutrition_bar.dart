@@ -15,18 +15,19 @@ class NutritionBar extends StatelessWidget {
   const NutritionBar(
       {super.key,
       required this.title,
-      required this.totalValue,
+      required this.minTotalValue,
+      required this.maxTotalValue,
       required this.currentValue,
       required this.upSideDown});
 
-  final String title, currentValue, totalValue;
+  final String title, currentValue, minTotalValue, maxTotalValue;
   final bool upSideDown;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 90,
-      height: 150,
+      height: 175,
       child: Stack(
         children: [
           Align(
@@ -44,9 +45,10 @@ class NutritionBar extends StatelessWidget {
                   top: upSideDown ? const Radius.circular(25) : const Radius.circular(50),
                 ),
                 border: GradientBoxBorder(
-                    gradient:
-                        upSideDown ? AppColors.vUtDLinearDarkGrid : AppColors.vDtULinearDarkGrid,
-                    width: 5),
+                  gradient:
+                      upSideDown ? AppColors.vUtDLinearDarkGrid : AppColors.vDtULinearDarkGrid,
+                  width: 5,
+                ),
               ),
               child: Column(
                 mainAxisAlignment: upSideDown ? MainAxisAlignment.start : MainAxisAlignment.end,
@@ -60,9 +62,18 @@ class NutritionBar extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    totalValue,
+                    minTotalValue.length < 6 ? minTotalValue : minTotalValue.substring(0, 6),
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: AppColors.mainColor,
+                      color: AppColors.secondColor,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Text(
+                    maxTotalValue.length < 6 ? maxTotalValue : maxTotalValue.substring(0, 6),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.redColor,
                       fontSize: 14,
                     ),
                   ),
@@ -85,7 +96,7 @@ class NutritionBar extends StatelessWidget {
                     width: 10),
               ),
               child: Text(
-                currentValue,
+                currentValue.length < 6 ? currentValue : currentValue.substring(0, 6),
                 style: TextStyle(
                   color: AppColors.mainColor,
                   fontSize: 18,

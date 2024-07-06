@@ -180,37 +180,6 @@ class EnterTestResults extends StatelessWidget {
                       alignment: Alignment.center,
                       child: AppButton(
                         buttonFunction: () {
-                          Map<String, String> medicalTestsResults = {
-                            "complete_cholesterol": (completeCholesterolController.text),
-                            "hdl_cholesterol": (hdlCholesterolController.text),
-                            "ldl_cholesterol": (ldlCholesterolController.text),
-                            "triglyceride_cholesterol": (triglycerideCholesterolController.text),
-                            "diastolic_pressure": (diastolicPressureController.text),
-                            "systolic_pressure": (systolicPressureController.text),
-                            "fasting_test_diabetes": (fastingTestSugarController.text),
-                            "oral_test_diabetes": (oralTestSugarController.text),
-                            "a1c_test_diabetes": (a1CTestSugarController.text),
-                            "date_time": DateTime.now().toString(),
-                            "user_id": sharedPreferences.getString("userId")!,
-                          };
-                          Map<String, String> physicalTestsResults = {
-                            "weight": (weightObesityController.text),
-                            "height": (heightObesityController.text),
-                            "fats": (fatsObesityController.text),
-                            "water": (waterObesityController.text),
-                            "date_time": DateTime.now().toString(),
-                            "user_id": sharedPreferences.getString("userId")!,
-                          };
-
-                          medicalApiManager.medicalAuthFunction(medicalTestsResults);
-                          medicalApiManager.physicalAuthFunction(physicalTestsResults);
-
-                          diseaseIdentificationController.addResults(
-                            medicalTestsResults,
-                            physicalTestsResults,
-                            authDataController.radioButtonValues["gender"]!,
-                          );
-
                           sharedPreferences.setDouble("completeCholesterol",
                               double.parse(completeCholesterolController.text));
                           sharedPreferences.setDouble(
@@ -237,6 +206,43 @@ class EnterTestResults extends StatelessWidget {
                               "fatsObesity", double.parse(fatsObesityController.text));
                           sharedPreferences.setDouble(
                               "waterObesity", double.parse(waterObesityController.text));
+
+                          double weight = double.parse(weightObesityController.text),
+                              height = double.parse(heightObesityController.text);
+                          double bmi = weight / (height * height);
+                          sharedPreferences.setDouble("bmi", bmi);
+
+                          Map<String, String> medicalTestsResults = {
+                            "complete_cholesterol": (completeCholesterolController.text),
+                            "hdl_cholesterol": (hdlCholesterolController.text),
+                            "ldl_cholesterol": (ldlCholesterolController.text),
+                            "triglyceride_cholesterol": (triglycerideCholesterolController.text),
+                            "diastolic_pressure": (diastolicPressureController.text),
+                            "systolic_pressure": (systolicPressureController.text),
+                            "fasting_test_diabetes": (fastingTestSugarController.text),
+                            "oral_test_diabetes": (oralTestSugarController.text),
+                            "a1c_test_diabetes": (a1CTestSugarController.text),
+                            "date_time": DateTime.now().toString(),
+                            "user_id": sharedPreferences.getString("userId")!,
+                          };
+                          Map<String, String> physicalTestsResults = {
+                            "weight": (weightObesityController.text),
+                            "height": (heightObesityController.text),
+                            "fats": (fatsObesityController.text),
+                            "water": (waterObesityController.text),
+                            "date_time": DateTime.now().toString(),
+                            "user_id": sharedPreferences.getString("userId")!,
+                          };
+
+                          diseaseIdentificationController.addResults(
+                              medicalTestsResults,
+                              physicalTestsResults,
+                              authDataController.radioButtonValues["gender"]!,
+                          );
+
+                          medicalApiManager.medicalAuthFunction(medicalTestsResults);
+                          medicalApiManager.physicalAuthFunction(physicalTestsResults);
+
                         },
                         buttonTitle: "Enter Data",
                       ),

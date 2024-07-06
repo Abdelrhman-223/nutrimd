@@ -44,6 +44,7 @@ dependencies:
   http: ^1.2.1
   fluttertoast: ^8.2.4
   qr_bar_code_scanner_dialog: ^0.0.5
+  interactive_slider: ^0.2.2
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +101,7 @@ flutter:
 
   assets:
     - assets/icons/
+    - assets/icons/emojis/
     - assets/images/
     - assets/images/intro_images/
 

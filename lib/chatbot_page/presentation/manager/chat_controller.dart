@@ -36,7 +36,7 @@ class ChatBotController extends GetxController {
 
   chatbotFunction(String urlRequest) async {
     var uri = "${ApiConnections().urlDomains["chatbot"]!}/$urlRequest";
-    var url = Uri.http(ApiConnections.urlBase, uri);
+    var url = Uri.http(ApiConnections.aiUrlBase, uri);
     /*
     var url = Uri(path: "http://${ApiManager.urlBase}/${ApiManager().urlDomains["chatbot"]!}/$urlRequest");*/
     /*var url = Uri(query: "http://${ApiManager.urlBase}/${ApiManager().urlDomains["chatbot"]!}");*/
